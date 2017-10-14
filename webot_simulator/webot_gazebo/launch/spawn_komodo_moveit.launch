@@ -1,0 +1,61 @@
+<!-- -*- mode: XML -*- -->
+<launch>
+  
+  <arg name="name" default="lizi"/>
+  <arg name="color" default="Green"/>
+  <arg name="front_camera" default='false'/>
+  <arg name="arm_camera" default='false'/>
+  <arg name="depth_camera" default='false'/>
+  <arg name="laser_scanner" default='false'/>
+  <arg name="urf" default='false'/>
+  <arg name="imu" default='false'/>
+  
+  <arg name="x" default="0.0"/>
+  <arg name="y" default="0.0"/>
+  <arg name="z" default="0.1"/>
+  <arg name="R" default="0.0" />
+  <arg name="P" default="0.0" />
+  <arg name="Y" default="0.0" />
+  
+  <include file="$(find ric_robot)/launch/ric_jta_controller.launch" />  
+    
+    
+    <param name="robot_description" command="$(find xacro)/xacro.py '$(find ric_gazebo)/robots/komodo/komodo_moveit.xacro'  
+    color:=$(arg color)
+     gazebo:='true'
+     front_camera:=$(arg front_camera)
+     arm_camera:=$(arg front_camera)
+     depth_camera:=$(arg depth_camera)
+     laser_scanner:=$(arg laser_scanner)
+     urf:=$(arg urf)
+     imu:=$(arg imu)
+    " /> 
+    
+    
+    <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+	  args="-urdf -model $(arg name) -param robot_description -x $(arg x) -y $(arg y) -z $(arg z) -R $(arg R) -P $(arg P) -Y $(arg Y)"/> 
+    
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen"/>
+    
+    
+    <node name="pcloud_rot_node" pkg="ric_gazebo" type="pcloud_rot_node" cwd="node" output="screen" /> 
+    
+    <rosparam file="$(find ric_gazebo)/robots/komodo/komodo_controllers.yaml" command="load"/>
+    
+    <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+	output="screen" args="
+					   base_rotation_controller
+					   shoulder_controller
+					   elbow1_controller
+					   elbow2_controller
+					   wrist_controller
+					   left_finger_controller
+					   right_finger_controller
+					   joint_state_controller 
+					   "/>
+    
+    <node pkg="tf" type="static_transform_publisher" name="map_odom_broadcaster" args="0 0 0 0 0 0 /map /odom_link 20" /> 
+
+
+</launch>
+

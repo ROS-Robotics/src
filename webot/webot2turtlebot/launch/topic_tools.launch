@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<launch>
+  
+  
+  
+  <node pkg="topic_tools" type="relay" name="relay" args="odom my_odom" /> 
+  
+<!--  
+      <node pkg="usb_cam" type="usb_cam_node" name="front_cam_node" output="screen"  respawn="true">
+      <param name="~video_device" value="/dev/video1" />
+      <param name="~camera_frame_id" value="komodo_$(arg id)_Front_Camera_link" />
+      <param name="~pixel_format" value="yuyv" />
+      <param name="~image_width" value="1920" />
+      <param name="~image_height" value="1080" />
+    </node>
+ 
+
+    <node pkg="rosserial_python" type="serial_node.py" name="serial_node" output="screen">
+      <param name="~port" value="/dev/ttyACM1" />
+      <param name="~baud" value="57600" />
+    </node>
+   
+    
+
+
+
+    <node pkg="hokuyo_node" type="hokuyo_node" name="hokuyo_node" output="screen">
+      <param name="port" value="/dev/Hokuyo" />
+      <param name="frame_id" value="Laser_link" /> 
+    </node> 
+ 
+ -->    
+
+</launch>
+
+

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<launch>
+  
+  <arg name="id" default='1' />
+  
+  
+  <group ns="komodo_$(arg id)">
+    
+    
+    
+    <node name="ric_arm_rc" pkg="ric_robot" type="ric_arm_rc.py" output="screen" />
+    
+    
+    
+  </group>
+  
+  
+</launch>
+
+
+

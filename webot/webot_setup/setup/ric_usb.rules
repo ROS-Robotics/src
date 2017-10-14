@@ -1,0 +1,8 @@
+
+ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="04[789]?", ENV{ID_MM_DEVICE_IGNORE}="1"
+ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="04[789]?", ENV{MTP_NO_PROBE}="1"
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="04[789]?", MODE:="0666"
+KERNEL=="ttyACM*", ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="04[789]?", MODE:="0666"
+SUBSYSTEMS=="usb",ATTRS{manufacturer}=="Hokuyo Data Flex for USB", SYMLINK+="Hokuyo", MODE="0666"
+SUBSYSTEMS=="usb", ATTRS{manufacturer}=="Teensyduino", SYMLINK+="RiCBoard", MODE="0666"
+SUBSYSTEMS=="usb",ATTRS{product}=="FT232R USB UART", SYMLINK+="USB2DYNAMIXEL", MODE="0666"

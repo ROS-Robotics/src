@@ -1,0 +1,202 @@
+<robot
+  name="webot">
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="-0.000802846399736979 0.112304432932504 -0.000209356485458768"
+        rpy="0 0 0" />
+      <mass
+        value="2.75602153820199" />
+      <inertia
+        ixx="0.0528941000422198"
+        ixy="-0.000162963253512676"
+        ixz="0.000219518600719061"
+        iyy="0.0413606825276654"
+        iyz="0.00121714858076359"
+        izz="0.0417570844864507" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://webot_description/webot/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.5 0.7 0.5 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://webot_description/webot/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="wheel_r_Link">
+    <inertial>
+      <origin
+        xyz="-0.150060560340058 4.97129955467677E-07 -0.019997268674587"
+        rpy="0 0 0" />
+      <mass
+        value="0.833379717609032" />
+      <inertia
+        ixx="0.00236992524297203"
+        ixy="-4.72073427371933E-08"
+        ixz="-2.28324902677571E-07"
+        iyy="0.00135168070000041"
+        iyz="-1.90178340613445E-08"
+        izz="0.00135164335754289" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://webot_description/webot/meshes/wheel_r_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.1 0.1 0.1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://webot_description/webot/meshes/wheel_r_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="wheel_r"
+    type="fixed">
+    <origin
+      xyz="0 0 0"
+      rpy="1.5708 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="wheel_r_Link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="wheel_l_Link">
+    <inertial>
+      <origin
+        xyz="0.150060560255534 -2.42861253555092E-06 -0.0199986538563866"
+        rpy="0 0 0" />
+      <mass
+        value="0.833379652997034" />
+      <inertia
+        ixx="0.00236992502077593"
+        ixy="-2.06573890448914E-07"
+        ixz="1.07998897068016E-07"
+        iyy="0.00135163944655637"
+        iyz="1.45662909139635E-08"
+        izz="0.00135168433663293" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://webot_description/webot/meshes/wheel_l_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.1 0.1 0.1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://webot_description/webot/meshes/wheel_l_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="wheel_l"
+    type="fixed">
+    <origin
+      xyz="0 0 0"
+      rpy="1.5708 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="wheel_l_Link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="laser_Link">
+    <inertial>
+      <origin
+        xyz="-3.9779488025298E-05 0.15896389076875 -0.187530640956521"
+        rpy="0 0 0" />
+      <mass
+        value="0.159593614437567" />
+      <inertia
+        ixx="7.4298723391974E-05"
+        ixy="7.29719771131733E-10"
+        ixz="-9.88379141939317E-10"
+        iyy="7.38794309427269E-05"
+        iyz="-1.62517390760294E-06"
+        izz="0.000107403329024307" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://webot_description/webot/meshes/laser_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.3 0.3 0.3 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://webot_description/webot/meshes/laser_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="laser"
+    type="fixed">
+    <origin
+      xyz="0 0 0"
+      rpy="1.5707963267949 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="laser_Link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+</robot>

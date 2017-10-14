@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<launch>
+ <arg name="robot_ip" />
+ <arg name="pc_ip" />
+ <arg name="launch_file" default="lizi101.launch" />
+<arg name="user"  default="lizi" />
+<arg name="pass"  default="a" />
+  
+<machine name="lizi" address="$(arg robot_ip)" user="$(arg user)" password="$(arg pass)" env-loader="~/catkin_ws/src/ric/ric_base_station/config/remote_env.sh" default="true"/>
+
+<include file="$(find ric_board)/launch/$(arg launch_file)"/>
+
+<!--
+ <include file="$(find ric_board)/launch/hector_slam.launch">
+  <arg name="tf_map_scanmatch_transform_frame_name" default="scanmatcher_frame"/>
+  <arg name="base_frame" default="base_link"/>
+  <arg name="odom_frame" default="odom_link"/>
+  <arg name="map_frame" default="map"/>
+  <arg name="pub_map_odom_transform" default="true"/>
+  <arg name="scan_subscriber_queue_size" default="5"/>
+  <arg name="scan_topic" default="scan"/>
+  <arg name="map_size" default="2048"/>
+</include>
+-->
+
+  <!-- 
+<include file="$(find ric_board)/launch/gmapping_slam.launch">
+  <arg name="base_frame" default="base_link"/>
+  <arg name="odom_frame" default="odom_link"/>
+  <arg name="map_frame" default="map"/>
+  <arg name="scan_topic" default="scan"/>
+  <arg name="map_size" default="2048"/>
+</include>
+-->
+  
+</launch>
+
+ 

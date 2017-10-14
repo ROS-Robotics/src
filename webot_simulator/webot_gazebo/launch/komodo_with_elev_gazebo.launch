@@ -1,0 +1,69 @@
+<!-- -*- mode: XML -*- -->
+<launch>
+  
+
+
+  <arg name="paused" default="false"/>
+  <arg name="use_sim_time" default="true"/>
+  <arg name="gui" default="true"/>
+  <arg name="headless" default="false"/>
+  <arg name="debug" default="false"/>
+  
+  
+  <!-- We resume the logic in empty_world.launch -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+   <!-- <arg name="world_name" value="$(find ric_gazebo)/worlds/gas_station.world"/> -->
+    <arg name="debug" value="$(arg debug)" />
+    <arg name="gui" value="$(arg gui)" />
+    <arg name="paused" value="$(arg paused)"/>
+    <arg name="use_sim_time" value="$(arg use_sim_time)"/>
+    <arg name="headless" value="$(arg headless)"/>
+  </include>
+  
+  <!-- Load the URDF into the ROS Parameter Server -->
+  <param name="robot_description" command="$(find xacro)/xacro.py '$(find ric_gazebo)/robots/komodo/komodo_with_elev.xacro'  ns:='init' color_name:='Grey'" />
+  
+    <!-- Colors: Black, Blue, Green, Grey, Orange, Brown, Red, White -->
+    
+  <include file="$(find ric_gazebo)/launch/spawn_komodo_with_elev.launch">   
+    <arg name="name" value="komodo_1"/>
+    <arg name="color" value="White"/>
+    <arg name="front_camera" value='true'/>
+    <arg name="arm_camera" value='true'/>
+    <arg name="depth_camera" value='true'/>
+    <arg name="laser_scanner" value='false'/>
+    <arg name="urf" value='false'/>
+    <arg name="imu" value='false'/>
+    <arg name="x" value="0.0" />
+    <arg name="y" value="0.0" />
+    <arg name="z" value="0.1" />
+    <arg name="R" value="0.0" />
+    <arg name="P" value="0.0" />
+    <arg name="Y" value="0.0" />
+  </include>
+  
+<!--
+  <include file="$(find ric_gazebo)/launch/spawn_komodo.launch">
+  <arg name="name" value="komodo_2"/>
+  <arg name="color" value="Grey"/>
+   <arg name="front_camera" value='false'/>
+    <arg name="arm_camera" value='false'/>
+    <arg name="depth_camera" value='false'/>
+    <arg name="laser_scanner" value='true'/>
+    <arg name="urf" value='false'/>
+    <arg name="imu" value='false'/>
+  <arg name="x" value="0.0" />
+  <arg name="y" value="1.0" />
+  <arg name="z" value="0.1" />
+  <arg name="R" value="0.0" />
+  <arg name="P" value="0.0" />
+  <arg name="Y" value="0.0" />
+  </include>
+ -->
+
+  
+  
+  
+	
+</launch>
+

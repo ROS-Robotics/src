@@ -1,0 +1,1140 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/ric_gazebo" name="komodo">
+	 <link name="base_link">
+	    <inertial>
+	      <origin xyz="-0.0205330571995271 4.54409684683429E-05 0.00735986203300292" rpy="0 0 0" />
+	      <mass value="45.0894999160313" />
+	      <inertia ixx="0.723503030508731" ixy="-46.8485359152423E-05" ixz="-0.0875564429068847"
+		iyy="1.38127064231828"
+		iyz="11.9695110167269E-05"
+		izz="1.94371448739423" />
+	    </inertial>
+	    <visual>
+	      <origin
+		xyz="0 0 0"
+		rpy="0 0 0" />
+	      <geometry>
+		<mesh
+		  filename="package://ric_description/komodo/meshes/col_base_link.STL" />
+	      </geometry>
+	      <material
+		 name="$(arg color)">
+	     <!--  <color rgba="0.52941176470588 0.52941176470588 0.52941176470588 1" /> -->
+	      </material>
+	    </visual>
+	    <collision>
+	      <origin
+		xyz="-0.065 0 0"
+		rpy="0 0 0" />
+	      <geometry>
+		<mesh
+		  filename="package://ric_description/komodo/meshes/col_base_link.STL" />
+	      </geometry>
+	    </collision>
+	  </link>
+	  <link
+	    name="FR_Wheel_link">
+	    <inertial>
+	      <origin
+		xyz="-0.00160662478940524 -2.59227836232889E-06 1.49952129885679E-05"
+		rpy="0 0 0" />
+	      <mass
+		value="3.8342752339456" />
+	      <inertia
+		ixx="0.0296525526023316"
+		ixy="1.51001308635369E-06"
+		ixz="2.3576732629264E-06"
+		iyy="0.0163749526634419"
+		iyz="1.22545882852199E-06"
+		izz="0.0163720506902763" />
+	    </inertial>
+	    <visual>
+	      <origin
+		xyz="0 0 0"
+		rpy="0 0 0" />
+	      <geometry>
+		<mesh
+		  filename="package://ric_description/komodo/meshes/FR_Wheel_link.STL" />
+	      </geometry>
+	      <material
+		name="">
+		<color
+		  rgba="0.15 0.15 0.15 1" />
+	      </material>
+	    </visual>
+	    <collision>
+	      <origin
+		xyz="0 0 0"
+		rpy="0 1.5 0" />
+	      <geometry>
+	       <!--mesh
+		  filename="package://ric_description/komodo/meshes_elevator/FR_Wheel_link.STL" /-->
+		<cylinder length="0.05" radius="0.1" 
+		  />
+	      </geometry>
+	    </collision>
+	  </link>
+	  <joint
+	    name="FR_Wheel_joint"
+	    type="continuous">
+	    <origin
+	      xyz="0.173999999999995 -0.2009 0"
+	      rpy="2.62229105359916E-15 6.9308460464278E-17 1.5707963267949" />
+	    <parent
+	      link="base_link" />
+	    <child
+	      link="FR_Wheel_link" />
+	    <axis
+	      xyz="1 0 0" />
+	  </joint>
+	  <link
+	    name="FL_Wheel_link">
+	    <inertial>
+	      <origin
+		xyz="-0.00160662480262744 -2.59228543311729E-06 1.49951351856364E-05"
+		rpy="0 0 0" />
+	      <mass
+		value="3.83427523136739" />
+	      <inertia
+		ixx="0.0296525525807749"
+		ixy="1.51001277133356E-06"
+		ixz="2.35766660656153E-06"
+		iyy="0.0163749526386264"
+		iyz="1.2254511654214E-06"
+		izz="0.0163720506916083" />
+	    </inertial>
+	    <visual>
+	      <origin
+		xyz="0 0 0"
+		rpy="0 0 0" />
+	      <geometry>
+		<mesh
+		  filename="package://ric_description/komodo/meshes/FL_Wheel_link.STL" />
+	      </geometry>
+	      <material
+		name="">
+		<color
+		  rgba="0.15 0.15 0.15 1" />
+	      </material>
+	    </visual>
+	    <collision>
+	      <origin
+		xyz="0 0 0"
+		rpy="0 1.5 0" />
+	      <geometry>
+	       <!--mesh
+		  filename="package://ric_description/komodo/meshes_elevator/FR_Wheel_link.STL" /-->
+		<cylinder length="0.05" radius="0.1"   
+		  />
+	      </geometry>
+	    </collision>
+	  </link>
+	  <joint
+	    name="FL_Wheel_joint"
+	    type="continuous">
+	    <origin
+	      xyz="0.173999999999995 0.2009 0"
+	      rpy="-2.62229105359916E-15 6.93084604642783E-17 -1.5707963267949" />
+	    <parent
+	      link="base_link" />
+	    <child
+	      link="FL_Wheel_link" />
+	    <axis
+	      xyz="-1 0 0" />
+	  </joint>
+	  <link
+	    name="RR_Wheel_link">
+	    <inertial>
+	      <origin
+		xyz="-0.00160662476834383 -2.59238516814309E-06 1.49950507030127E-05"
+		rpy="0 0 0" />
+	      <mass
+		value="3.83427523968864" />
+	      <inertia
+		ixx="0.0296525526652264"
+		ixy="1.5100019082583E-06"
+		ixz="2.35765651707649E-06"
+		iyy="0.0163749526901628"
+		iyz="1.22544631738128E-06"
+		izz="0.0163720507270359" />
+	    </inertial>
+	    <visual>
+	      <origin
+		xyz="0 0 0"
+		rpy="0 0 0" />
+	      <geometry>
+		<mesh
+		  filename="package://ric_description/komodo/meshes/RR_Wheel_link.STL" />
+	      </geometry>
+	      <material
+		name="">
+		<color
+		  rgba="0.15 0.15 0.15 1" />
+	      </material>
+	    </visual>
+	    <collision>
+	      <origin
+		xyz="0 0 0"
+		rpy="0 1.5 0" />
+	      <geometry>
+	       <!--mesh
+		  filename="package://ric_description/komodo/meshes_elevator/FR_Wheel_link.STL" /-->
+		<cylinder length="0.05" radius="0.1" 
+		  />
+	      </geometry>
+	    </collision>
+	  </link>
+	  <joint
+	    name="RR_Wheel_joint"
+	    type="continuous">
+	    <origin
+	      xyz="-0.156000000000005 -0.2009 0"
+	      rpy="2.62229105359916E-15 -1.59433090848306E-31 1.5707963267949" />
+	    <parent
+	      link="base_link" />
+	    <child
+	      link="RR_Wheel_link" />
+	    <axis
+	      xyz="1 0 0" />
+	  </joint>
+	  <link
+	    name="RL_Wheel_link">
+	    <inertial>
+	      <origin
+		xyz="-0.00160662477936549 -2.59222765522371E-06 1.49952106412736E-05"
+		rpy="0 0 0" />
+	      <mass
+		value="3.83427523542708" />
+	      <inertia
+		ixx="0.0296525526119397"
+		ixy="1.5100179619978E-06"
+		ixz="2.35767335983606E-06"
+		iyy="0.0163749526769378"
+		iyz="1.22544931791974E-06"
+		izz="0.0163720506885898" />
+	    </inertial>
+	    <visual>
+	      <origin
+		xyz="0 0 0"
+		rpy="0 0 0" />
+	      <geometry>
+		<mesh
+		  filename="package://ric_description/komodo/meshes/RL_Wheel_link.STL" />
+	      </geometry>
+	      <material
+		name="">
+		<color
+		  rgba="0.15 0.15 0.15 1" />
+	      </material>
+	    </visual>
+	    <collision>
+	      <origin
+		xyz="0 0 0"
+		rpy="0 1.5 0" />
+	      <geometry>
+	       <!--mesh
+		  filename="package://ric_description/komodo/meshes_elevator/FR_Wheel_link.STL" /-->
+		<cylinder length="0.05" radius="0.1"  
+		  />
+	      </geometry>
+	    </collision>
+	  </link>
+	  <joint
+	    name="RL_Wheel_joint"
+	    type="continuous">
+	    <origin
+	      xyz="-0.156000000000005 0.2009 0"
+	      rpy="-2.62229105359916E-15 -5.57680208627196E-32 -1.5707963267949" />
+	    <parent
+	      link="base_link" />
+	    <child
+	      link="RL_Wheel_link" />
+	    <axis
+	      xyz="-1 0 0" />
+	  </joint>
+	  <link
+	    name="Left_URF_link">
+	    <inertial>
+	      <origin
+		xyz="-0.00942258060476561 1.68888278492922E-05 -0.000193183712129175"
+		rpy="0 0 0" />
+	      <mass
+		value="0.00277487854391404" />
+	      <inertia
+		ixx="1.28314681514111E-07"
+		ixy="-1.54585356342896E-10"
+		ixz="3.11030599725484E-09"
+		iyy="1.18940672500039E-07"
+		iyz="4.35265830364889E-09"
+		izz="1.28434121553121E-07" />
+	    </inertial>
+	    <visual>
+	      <origin
+		xyz="0 0 0"
+		rpy="0 0 0" />
+	      <geometry>
+		<mesh
+		  filename="package://ric_description/komodo/meshes/Left_URF_link.STL" />
+	      </geometry>
+	      <material
+		name="">
+		<color
+		  rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+	      </material>
+	    </visual>
+	    <collision>
+	      <origin
+		xyz="0 0 0"
+		rpy="0 0 0" />
+	      <geometry>
+		<mesh
+		  filename="package://ric_description/komodo/meshes/Left_URF_link.STL" />
+	      </geometry>
+	    </collision>
+	  </link>
+	  <joint
+	    name="Left_URF_joint"
+	    type="fixed">
+	    <origin
+	      xyz="-0.0223133326154785 0.137250000000005 0.138508176066688"
+	      rpy="-2.73331335606168E-15 1.59433090848306E-31 1.5707963267949" />
+	    <parent
+	      link="base_link" />
+	    <child
+	      link="Left_URF_link" />
+	    <axis
+	      xyz="-1 0 0" />
+	  </joint>
+	  <link
+	    name="Rear_URF_link">
+	    <inertial>
+	      <origin
+		xyz="-0.00942258060476558 1.68888278491873E-05 -0.000193183712129189"
+		rpy="0 0 0" />
+	      <mass
+		value="0.0027748785439141" />
+	      <inertia
+		ixx="1.28314681514116E-07"
+		ixy="-1.54585356343498E-10"
+		ixz="3.1103059972555E-09"
+		iyy="1.18940672500041E-07"
+		iyz="4.35265830364838E-09"
+		izz="1.28434121553125E-07" />
+	    </inertial>
+	    <visual>
+	      <origin
+		xyz="0 0 0"
+		rpy="0 0 0" />
+	      <geometry>
+		<mesh
+		  filename="package://ric_description/komodo/meshes/Rear_URF_link.STL" />
+	      </geometry>
+	      <material
+		name="">
+		<color
+		  rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+	      </material>
+	    </visual>
+	    <collision>
+	      <origin
+		xyz="0 0 0"
+		rpy="0 0 0" />
+	      <geometry>
+		<mesh
+		  filename="package://ric_description/komodo/meshes/Rear_URF_link.STL" />
+	      </geometry>
+	    </collision>
+	  </link>
+	  <joint
+	    name="Rear_URF_joint"
+	    type="fixed">
+	    <origin
+	      xyz="-0.267499972183238 0 0.107999999999999"
+	      rpy="-6.16297582203915E-33 2.73331335606168E-15 3.14159265358979" />
+	    <parent
+	      link="base_link" />
+	    <child
+	      link="Rear_URF_link" />
+	    <axis
+	      xyz="-1 0 0" />
+	  </joint>
+	  <link
+	    name="Right_URF_link">
+	    <inertial>
+	      <origin
+		xyz="-0.00942258060476561 1.68888278493408E-05 -0.000193183712129202"
+		rpy="0 0 0" />
+	      <mass
+		value="0.00277487854391409" />
+	      <inertia
+		ixx="1.28314681514115E-07"
+		ixy="-1.54585356342962E-10"
+		ixz="3.11030599725548E-09"
+		iyy="1.18940672500041E-07"
+		iyz="4.3526583036484E-09"
+		izz="1.28434121553124E-07" />
+	    </inertial>
+	    <visual>
+	      <origin
+		xyz="0 0 0"
+		rpy="0 0 0" />
+	      <geometry>
+		<mesh
+		  filename="package://ric_description/komodo/meshes/Right_URF_link.STL" />
+	      </geometry>
+	      <material
+		name="">
+		<color
+		  rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+	      </material>
+	    </visual>
+	    <collision>
+	      <origin
+		xyz="0 0 0"
+		rpy="0 0 0" />
+	      <geometry>
+		<mesh
+		  filename="package://ric_description/komodo/meshes/Right_URF_link.STL" />
+	      </geometry>
+	    </collision>
+	  </link>
+	  <joint
+	    name="Right_URF_joint"
+	    type="fixed">
+	    <origin
+	      xyz="-0.0223133326154785 -0.137249999999995 0.138508176066688"
+	      rpy="2.73331335606168E-15 -1.59433090848306E-31 -1.5707963267949" />
+	    <parent
+	      link="base_link" />
+	    <child
+	      link="Right_URF_link" />
+	    <axis
+	      xyz="-1 0 0" />
+	  </joint>
+	  <link
+	    name="Front_Camera_link">
+	    <inertial>
+	      <origin
+		xyz="3.63553471578737E-06 0.000213443852909154 -0.00979905092954431"
+		rpy="0 0 0" />
+	      <mass
+		value="0.0346828331927876" />
+	      <inertia
+		ixx="6.28790547336199E-06"
+		ixy="-2.06834494924545E-09"
+		ixz="1.17994816105049E-09"
+		iyy="6.08020816375924E-06"
+		iyz="3.61787794067701E-08"
+		izz="9.95214453956241E-06" />
+	    </inertial>
+	    <visual>
+	      <origin
+		xyz="0 0 0"
+		rpy="-1.57079632649567 1.57079632649567 -1.57079632649567" />
+	      <geometry>
+		<mesh
+		  filename="package://ric_description/komodo/meshes/Front_Camera_link.STL" />
+	      </geometry>
+	      <material
+		name="">
+		<color
+		  rgba="0.1 0.1 0.1 1" />
+	      </material>
+	    </visual>
+	    <collision>
+	      <origin
+		xyz="0 0 0"
+		rpy="1.57 0 0" />
+	      <geometry>
+		<mesh
+		  filename="package://ric_description/komodo/meshes/Front_Camera_link.STL" />
+	      </geometry>
+	    </collision>
+	  </link>
+	  <joint
+	    name="Front_Camera_joint"
+	    type="fixed">
+	    <origin
+	      xyz="0.262250027816762 0.0875000000000051 0.100000000000001"
+	      rpy="0 0 0" />
+	    <parent
+	      link="base_link" />
+	    <child
+	      link="Front_Camera_link" />
+	    <axis
+	      xyz="0 0 1" />
+	  </joint>
+	  <link
+	    name="Laser_link">
+	    <inertial>
+	      <origin
+		xyz="5.67786090348299E-05 -6.35639788811446E-05 -0.0320034700075499"
+		rpy="0 0 0" />
+	      <mass
+		value="0.133672626323353" />
+	      <inertia
+		ixx="7.01753800311366E-05"
+		ixy="-5.24162580339348E-08"
+		ixz="1.6420597550453E-07"
+		iyy="7.0476938858621E-05"
+		iyz="1.92324838956078E-07"
+		izz="4.61464878783427E-05" />
+	    </inertial>
+	    <visual>
+	      <origin
+		xyz="0 0 0"
+		rpy="0 0 0" />
+	      <geometry>
+		<mesh
+		  filename="package://ric_description/komodo/meshes/Laser_link.STL" />
+	      </geometry>
+	      <material
+		name="">
+		<color
+		  rgba="0.192156862745098 0.1819607843137255 0.1933333333333333 1" />
+	      </material>
+	    </visual>
+	    <collision>
+	      <origin
+		xyz="0 0 0"
+		rpy="0 0 0" />
+	      <geometry>
+		<mesh
+		  filename="package://ric_description/komodo/meshes/Laser_link.STL" />
+	      </geometry>
+	    </collision>
+	  </link>
+	  <joint
+	    name="Laser_joint"
+	    type="fixed">
+	    <origin
+	      xyz="0.234263427816762 0 0.145827195177237"
+	      rpy="-6.93084604642783E-17 -2.62229105359916E-15 5.55111512312578E-17" />
+	    <parent
+	      link="base_link" />
+	    <child
+	      link="Laser_link" />
+	    <axis
+	      xyz="0 0 -1" />
+	  </joint>
+	  <link
+	    name="Asus_Camera_link">
+	    <inertial>
+	      <origin
+		xyz="-0.0187798361475048 -0.000287133366772307 -0.000201032384153296"
+		rpy="0 0 0" />
+	      <mass
+		value="0.150306955527936" />
+	      <inertia
+		ixx="0.00039928218741962"
+		ixy="-5.34870767194659E-07"
+		ixz="-1.37242873517293E-08"
+		iyy="2.36182089627434E-05"
+		iyz="-8.67618422000016E-09"
+		izz="0.000406064964123578" />
+	    </inertial>
+	    <visual>
+	      <origin
+		xyz="0 0 0"
+		rpy="0 0 0" />
+	      <geometry>
+		<mesh
+		  filename="package://ric_description/komodo/meshes/Asus_Camera_link.STL" />
+	      </geometry>
+	      <material
+		name="">
+		<color
+		  rgba="0.1792156862745098 0.1819607843137255 0.1933333333333333 1" />
+	      </material>
+	    </visual>
+	    <collision>
+	      <origin
+		xyz="0 0 0"
+		rpy="0 0 0" />
+	      <geometry>
+		<mesh
+		  filename="package://ric_description/komodo/meshes/Asus_Camera_link.STL" />
+	      </geometry>
+	    </collision>
+	  </link>
+	  <joint
+	    name="Asus_Camera_joint"
+	    type="fixed">
+	    <origin
+	      xyz="0.262250027816762 0 0.0635000000000008"
+	      rpy="-6.93084604642783E-17 -2.62229105359916E-15 5.55111512312578E-17" />
+	    <parent
+	      link="base_link" />
+	    <child
+	      link="Asus_Camera_link" />
+	    <axis
+	      xyz="-1 0 0" />
+	  </joint>
+	  <link
+	    name="Arm_base_link">
+	    <inertial>
+	      <origin
+		xyz="-0.0168723530982394 -5.23224904403848E-05 0.038112696778507"
+		rpy="0 0 0" />
+	      <mass
+		value="1.08982930885161" />
+	      <inertia
+		ixx="0.00311458437968986"
+		ixy="-7.0610782277189E-06"
+		ixz="-0.000262941654993437"
+		iyy="0.00855106134499406"
+		iyz="1.00391927392762E-06"
+		izz="0.0104177337437887" />
+	    </inertial>
+	    <visual>
+	      <origin
+		xyz="0 0 0"
+		rpy="0 0 0" />
+	      <geometry>
+		<mesh
+		  filename="package://ric_description/komodo/meshes/Arm_base_link.STL" />
+	      </geometry>
+	      <material
+		name="">
+		<color
+		  rgba="0.4 0.4 0.4 1" />
+	      </material>
+	    </visual>
+	    <collision>
+	      <origin
+		xyz="0 0 0"
+		rpy="0 0 0" />
+	      <geometry>
+		<mesh
+		  filename="package://ric_description/komodo/meshes/Arm_base_link.STL" />
+	      </geometry>
+	    </collision>
+	  </link>
+	  <joint
+	    name="Arm_base_joint"
+	    type="fixed">
+	    <origin
+	      xyz="-0.112249972183238 0 0.167160698455407"
+	      rpy="3.54761842723405E-15 -3.56763412295181E-15 -3.35371649289343E-30" />
+	    <parent
+	      link="base_link" />
+	    <child
+	      link="Arm_base_link" />
+	    <axis
+	      xyz="0 0 1" />
+	  </joint>
+	  <link
+	    name="base_rotation_link">
+	    <inertial>
+	      <origin
+		xyz="-1.11022302462516E-16 -7.80223872637444E-17 0.0660708417371112"
+		rpy="0 0 0" />
+	      <mass
+		value="1.4054258533062" />
+	      <inertia
+		ixx="0.00159425912810341"
+		ixy="-8.40269196653518E-08"
+		ixz="-1.60925604895535E-19"
+		iyy="0.000605522001732049"
+		iyz="-6.08768470792684E-19"
+		izz="0.00123388334665811" />
+	    </inertial>
+	    <visual>
+	      <origin
+		xyz="0 0 0"
+		rpy="0 0 0" />
+	      <geometry>
+		<!--mesh
+		  filename="package://ric_description/komodo/meshes/base_rotation_link.STL" /-->
+		<mesh 
+		  filename="package://ric_description/komodo/meshes/col_base_rotation_link.STL" />
+	      </geometry>
+	      <material
+		name="">
+		<color
+		  rgba="0.3 0.3 0.3 1" />
+	      </material>
+	    </visual>
+	    <collision>
+	      <origin
+		xyz="0 0 0"
+		rpy="0 0 0" />
+	      <geometry>
+		<mesh
+		  filename="package://ric_description/komodo/meshes/col_base_rotation_link.STL" /> <!-- Simplified -->
+	      </geometry>
+	    </collision>
+	  </link>
+	  <joint
+	    name="base_rotation_joint"
+	    type="revolute">
+	    <origin
+	      xyz="-0.096277996026178 0 0.0549000000000002"
+	      rpy="-5.46369598732866E-16 1.34659130519145E-15 -2.1922983760752E-31" />
+	    <parent
+	      link="Arm_base_link" />
+	    <child
+	      link="base_rotation_link" />
+	    <axis
+	      xyz="0 0 1" />
+	    <limit
+	      lower="-3.14"
+	      upper="3.14"
+	      effort="10"
+	      velocity="0" />
+	  </joint>
+	  <link
+	    name="shoulder_link">
+	    <inertial>
+	      <origin
+		xyz="-4.66231481405233E-06 -9.82289126283389E-05 0.0772888499682157"
+		rpy="0 0 0" />
+	      <mass
+		value="0.191480823048406" />
+	      <inertia
+		ixx="0.00107301595696304"
+		ixy="-2.9789063890745E-07"
+		ixz="-2.01216953964121E-08"
+		iyy="0.000975953125213584"
+		iyz="-1.19601921452086E-06"
+		izz="0.000217659789393094" />
+	    </inertial>
+	    <visual>
+	      <origin
+		xyz="0 0 0"
+		rpy="0 0 0" />
+	      <geometry>
+		<mesh
+		  filename="package://ric_description/komodo/meshes/col_shoulder_link.STL" /> <!-- Simplified -->
+	      </geometry>
+	      <material
+		name="">
+		<color
+		  rgba="0.4 0.4 0.4 1" />
+	      </material>
+	    </visual>
+	    <collision>
+	      <origin
+		xyz="0 0 0"
+		rpy="0 0 0" />
+	      <geometry>
+		<mesh
+		  filename="package://ric_description/komodo/meshes/col_shoulder_link.STL" /> <!-- Simplified -->
+	      </geometry>
+	    </collision>
+	  </link>
+	  <joint
+	    name="shoulder_joint"
+	    type="revolute">
+	    <origin
+	      xyz="0 0 0.0834999999999999"
+	      rpy="-4.20159904047482E-15 -5.97509793174248E-16 9.93431320775303E-15" />
+	    <parent
+	      link="base_rotation_link" />
+	    <child
+	      link="shoulder_link" />
+	    <axis
+	      xyz="0 1 0" />
+	    <limit
+	      lower="-1.57"
+	      upper="1.57"
+	      effort="2000"
+	      velocity="0" />
+	  </joint>
+	  <link
+	    name="elbow1_link">
+	    <inertial>
+	      <origin
+		xyz="3.38561240652013E-05 2.66604610292575E-06 0.0239321015909688"
+		rpy="0 0 0" />
+	      <mass
+		value="0.759959116000226" />
+	      <inertia
+		ixx="0.0011156254663426"
+		ixy="3.16193221175592E-07"
+		ixz="2.89169705133133E-06"
+		iyy="0.00114606034071406"
+		iyz="-8.11914906919631E-08"
+		izz="0.000237163435713384" />
+	    </inertial>
+	    <visual>
+	      <origin
+		xyz="0 0 0"
+		rpy="0 0 0" />
+	      <geometry>
+		<mesh
+		  filename="package://ric_description/komodo/meshes/col_elbow1_link.STL" />  <!-- Simplified -->
+	      </geometry>
+	      <material
+		name="">
+		<color
+		  rgba="0.3 0.3 0.3 1" />
+	      </material>
+	    </visual>
+	    <collision>
+	      <origin
+		xyz="0 0 0"
+		rpy="0 0 0" />
+	      <geometry>
+		<mesh
+		 filename="package://ric_description/komodo/meshes/col_elbow1_link.STL" />  <!-- Simplified -->
+	      </geometry>
+	    </collision>
+	  </link>
+	  <joint
+	    name="elbow1_joint"
+	    type="revolute">
+	    <origin
+	      xyz="0 -0.000251155668932789 0.266305434894181"
+	      rpy="1.44504380352115E-15 1.11628850952447E-06 -9.93431159466724E-15" />
+	    <parent
+	      link="shoulder_link" />
+	    <child
+	      link="elbow1_link" />
+	    <axis
+	      xyz="-0.999999999998754 0 0" />
+	    <limit
+	      lower="-3.14"
+	      upper="3.14"
+	      effort="100"
+	      velocity="0" />
+	  </joint>
+	  <link
+	    name="elbow2_link">
+	    <inertial>
+	      <origin
+		xyz="-2.29085121194481E-05 -0.000512185919169572 0.0885118786028204"
+		rpy="0 0 0" />
+	      <mass
+		value="1.12138857800426" />
+	      <inertia
+		ixx="0.0011156254663426"
+		ixy="3.04261287700186E-07"
+		ixz="-1.22468079415109E-06"
+		iyy="0.0110437302875007"
+		iyz="-7.91547787630536E-05"
+		izz="0.000331598270284794" />
+	    </inertial>
+	    <visual>
+	      <origin
+		xyz="0 0 0"
+		rpy="0 0 0" />
+	      <geometry>
+		<mesh
+		   filename="package://ric_description/komodo/meshes/col_elbow2_link.STL" />  <!-- Simplified -->
+	      </geometry>
+	      <material
+		name="">
+		<color
+		  rgba="0.4 0.4 0.4 1" />
+	      </material>
+	    </visual>
+	    <collision>
+	      <origin
+		xyz="0 0 0"
+		rpy="0 0 0" />
+	      <geometry>
+		<mesh
+		  filename="package://ric_description/komodo/meshes/col_elbow2_link.STL" />  <!-- Simplified -->
+	      </geometry>
+	    </collision>
+	  </link>
+	  <joint
+	    name="elbow2_joint"
+	    type="revolute">
+	    <origin
+	      xyz="0 0 0.223999999999899"
+	      rpy="-4.51048856041191E-16 3.35869632765754E-16 0" />
+	    <parent
+	      link="elbow1_link" />
+	    <child
+	      link="elbow2_link" />
+	    <axis
+	      xyz="0 1 0" />
+	    <limit
+	      lower="-3.14"
+	      upper="3.14"
+	      effort="10"
+	      velocity="0" />
+	  </joint>
+	  <link
+	    name="wrist_link">
+	    <inertial>
+	      <origin
+		xyz="0 0 0"
+		rpy="0 0 0" />
+	      <mass
+		value="0.717337417215465" />
+	      <inertia
+		ixx="0.000486392340366094"
+		ixy="4.20757000035677E-12"
+		ixz="-3.91843889020299E-06"
+		iyy="0.000211170064630335"
+		iyz="2.79335159568522E-12"
+		izz="0.000437528795624211" />
+	    </inertial>
+	    <visual>
+	      <origin
+		xyz="0 0 0"
+		rpy="0 0 0" />
+	      <geometry>
+		<mesh
+		filename="package://ric_description/komodo/meshes/col_wrist_link.STL" />  <!-- Simplified -->
+	      </geometry>
+	      <material
+		name="">
+		<color
+		  rgba="0.4 0.4 0.4 1" />
+	      </material>
+	    </visual>
+	    <collision>
+	      <origin
+		xyz="0 0 0"
+		rpy="0 0 0" />
+	      <geometry>
+		<mesh
+		  filename="package://ric_description/komodo/meshes/col_wrist_link.STL" />  <!-- Simplified -->
+	      </geometry>
+	    </collision>
+	  </link>
+	  <joint
+	    name="wrist_joint"
+	    type="revolute">
+	    <origin
+	      xyz="0.0137 0 0.244749999999997"
+	      rpy="0 0 0" />
+	    <parent
+	      link="elbow2_link" />
+	    <child
+	      link="wrist_link" />
+	    <axis
+	      xyz="0 0 0.999999999998754" />
+	    <limit
+	      lower="-3.14"
+	      upper="3.14"
+	      effort="10"
+	      velocity="0" />
+	  </joint>
+	  <link
+	    name="left_finger_link">
+	    <inertial>
+	      <origin
+		xyz="-6.10622663543836E-16 0.0205697573116852 0.0301832532936965"
+		rpy="0 0 0" />
+	      <mass
+		value="0.0111981711598485" />
+	      <inertia
+		ixx="0.000486392340366094"
+		ixy="4.20757000035677E-12"
+		ixz="-3.91843889020299E-06"
+		iyy="0.000211170064630335"
+		iyz="2.79335159568522E-12"
+		izz="0.000437528795624211" />
+	    </inertial>
+	    <visual>
+	      <origin
+		xyz="0 0 0"
+		rpy="0 0 0" />
+	      <geometry>
+		<mesh
+		  filename="package://ric_description/komodo/meshes/col_left_finger_link.STL" />  <!-- Simplified -->
+	      </geometry>
+	      <material
+		name="">
+		<color
+		  rgba="0.4 0.4 0.4 1" />
+	      </material>
+	    </visual>
+	    <collision>
+	      <origin
+		xyz="0 0 0"
+		rpy="0 0 0" />
+	      <geometry>
+		<mesh
+		  filename="package://ric_description/komodo/meshes/col_left_finger_link.STL" />  <!-- Simplified -->
+	      </geometry>
+	    </collision>
+	  </link>
+	  <joint
+	    name="left_finger_joint"
+	    type="revolute">
+	    <origin
+	      xyz="-0.000250000000000111 0.021 0.0422500000000001"
+	      rpy="2.85979682697881E-15 1.01870746742143E-16 3.19235832636806E-21" />
+	    <parent
+	      link="wrist_link" />
+	    <child
+	      link="left_finger_link" />
+	    <axis
+	      xyz="1 0 0" />
+	    <limit
+	      lower="-3.14"
+	      upper="3.14"
+	      effort="10"
+	      velocity="0" />
+	  </joint>
+	  <link
+	    name="right_finger_link">
+	    <inertial>
+	      <origin
+		xyz="2.77555756156289E-16 -0.0205697573116854 0.0301832532936965"
+		rpy="0 0 0" />
+	      <mass
+		value="0.0111981711598485" />
+	      <inertia
+		ixx="0.000486392340366094"
+		ixy="4.20757000035677E-12"
+		ixz="-3.91843889020299E-06"
+		iyy="0.000211170064630335"
+		iyz="2.79335159568522E-12"
+		izz="0.000437528795624211" />
+	    </inertial>
+	    <visual>
+	      <origin
+		xyz="0 0 0"
+		rpy="0 0 0" />
+	      <geometry>
+		<mesh
+		  filename="package://ric_description/komodo/meshes/col_right_finger_link.STL" />  <!-- Simplified -->
+	      </geometry>
+	      <material
+		name="">
+		<color
+		  rgba="0.4 0.4 0.4 1" />
+	      </material>
+	    </visual>
+	    <collision>
+	      <origin
+		xyz="0 0 0"
+		rpy="0 0 0" />
+	      <geometry>
+		<mesh
+		   filename="package://ric_description/komodo/meshes/col_right_finger_link.STL" />  <!-- Simplified -->
+	      </geometry>
+	    </collision>
+	  </link>
+	  <joint
+	    name="right_finger_joint"
+	    type="revolute">
+	    <origin
+	      xyz="-0.00024999999999889 -0.021 0.0422499999999999"
+	      rpy="0 3.19686557214722E-37 0" />
+	    <parent
+	      link="wrist_link" />
+	    <child
+	      link="right_finger_link" />
+	    <axis
+	      xyz="1 0 0" />
+	    <limit
+	      lower="-3.14"
+	      upper="3.14"
+	      effort="10"
+	      velocity="0" />
+	  </joint>
+	  <link
+	    name="Arm_Camera_link">
+	    <inertial>
+	      <origin
+		xyz="3.63554297842268E-06 0.000213444909942184 -0.00979905208116372"
+		rpy="0 0 0" />
+	      <mass
+		value="0.0346828395874569" />
+	      <inertia
+		ixx="6.28790794550091E-06"
+		ixy="-2.06796512209413E-09"
+		ixz="1.17989404036011E-09"
+		iyy="6.08020883541883E-06"
+		iyz="3.61783344700129E-08"
+		izz="9.95214525566595E-06" />
+	    </inertial>
+	    <visual>
+	      <origin
+		xyz="0 0 0"
+		rpy="0 1.57 0" />
+	      <geometry>
+		<mesh
+		  filename="package://ric_description/komodo/meshes/Arm_Camera_link.STL" />
+	      </geometry>
+	      <material
+		name="">
+		<color
+		  rgba="0.4 0.4 0.4 1" />
+	      </material>
+	    </visual>
+	    <collision>
+	      <origin
+		xyz="0 0 0"
+		rpy="0 0 0" />
+	      <geometry>
+		<mesh
+		  filename="package://ric_description/komodo/meshes/Arm_Camera_link.STL" />
+	      </geometry>
+	    </collision>
+	  </link>
+	  <joint
+	    name="Arm_camera_joint"
+	    type="fixed">
+	    <origin
+	      xyz="-0.0552499999999999 0 0.0340250000000002"
+	      rpy="0 -1.57079632649567 0" />
+	    <parent
+	      link="wrist_link" />
+	    <child
+	      link="Arm_Camera_link" />
+	    <axis
+	      xyz="0 0 0.999999999998754" />
+	  </joint>
+	  <link
+	    name="sensors_unit_link">
+	    <inertial>
+	      <origin
+		xyz="0.0414414719218708 -0.000373289194023478 0.0507806551833217"
+		rpy="0 0 0" />
+	      <mass
+		value="3.00493541386534" />
+	      <inertia
+		ixx="0.0317419196615914"
+		ixy="-0.000328957251382255"
+		ixz="-0.0101477531293138"
+		iyy="0.0944166881470797"
+		iyz="2.04069229359132E-05"
+		izz="0.116969738863327" />
+	    </inertial>
+	    <visual>
+	      <origin
+		xyz="0 0 0"
+		rpy="0 0 0" />
+	      <geometry>
+		<mesh
+		  filename="package://ric_description/komodo/meshes/sensors_unit_link.STL" />
+	      </geometry>
+	      <material
+		name="">
+		<color
+		  rgba="0.6509803921568627 0.6537254901960784 0.656078431372549 1" />
+	      </material>
+	    </visual>
+	    <collision>
+	      <origin
+		xyz="0 0 0"
+		rpy="0 0 0" />
+	      <geometry>
+		<mesh
+		  filename="package://ric_description/komodo/meshes/sensors_unit_link.STL" />
+	      </geometry>
+	    </collision>
+	  </link>
+	  <joint
+	    name="sensors_unit_joint"
+	    type="fixed">
+	    <origin
+	      xyz="-0.00199997218323841 0 0.0835000000000001"
+	      rpy="-1.59433090848306E-31 -2.62229105359916E-15 5.55111512312578E-17" />
+	    <parent
+	      link="base_link" />
+	    <child
+	      link="sensors_unit_link" />
+	    <axis
+	      xyz="1 0 0" />
+	  </joint>
+</robot>

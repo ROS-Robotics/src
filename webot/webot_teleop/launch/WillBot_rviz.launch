@@ -1,0 +1,6 @@
+<?xml version="1.0" ?>
+<launch>
+        <!--- Run rviz  -->
+   <node name="rviz" pkg="rviz" type="rviz" args="-d $(find ric_robot)/rviz/robot.rviz" output="screen"/>
+
+</launch>

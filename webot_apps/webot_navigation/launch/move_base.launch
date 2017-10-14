@@ -1,0 +1,22 @@
+<launch>
+  <master auto="start"/>
+
+  <!-- Run the map server -->
+  <!-- <node name="map_server" pkg="map_server" type="map_server" args="$(find komodo_2dnav)/maps/map.yaml"/> -->
+
+ <include file="$(find komodo_2dnav)/launch/remaper.launch" >
+    <arg name="to" value="/komodo_1/diff_driver/command" />
+    <arg name="from" value="/cmd_vel" />
+  </include> 
+
+  <!--- Run AMCL -->
+  <!-- <include file="$(find komodo_2dnav)/launch/ric_amcl.launch" /> -->
+
+  <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+    <rosparam file="$(find komodo_2dnav)/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find komodo_2dnav)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find komodo_2dnav)/config/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find komodo_2dnav)/config/global_costmap_params.yaml" command="load" />
+    <rosparam file="$(find komodo_2dnav)/config/base_local_planner_params.yaml" command="load" />
+  </node>
+</launch>

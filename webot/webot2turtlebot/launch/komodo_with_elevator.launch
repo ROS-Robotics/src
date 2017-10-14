@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<launch>
+  
+  <arg name="id" default='1' />
+  <arg name="have_elevator"  default="True" />
+  <arg name="have_pan_tilt"  default="False" />
+  
+  <!-- uncomment this if you only want to view the model in RViz. comment komodo_arm.launch, all cameras, laser, serial_node  
+  <param name="publish_default_velocities" value="true"/>
+  <param name="use_gui" value="true"/>
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" > 
+    <remap from="joint_states" to="komodo_$(arg id)/joint_states"/>
+  </node>
+  <node pkg="tf" type="static_transform_publisher" name="static_transform_publisher0" args="0 0 0 0 0 0 komodo_$(arg id)_odom komodo_$(arg id)_base_link 20" /> 
+  -->
+  
+  
+  <param name="/robot_description" command="$(find xacro)/xacro.py '$(find ric_description)/komodo/komodo_elevator.xacro' komodo_id:=$(arg id)" />
+  <node pkg="tf" type="static_transform_publisher" name="static_transform_publisher" args="0 0 0 0 0 0 map komodo_$(arg id)_odom 20" /> 
+  
+  
+  
+  <group ns="komodo_$(arg id)">
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" /> 
+    
+    <param name="have_elevator" type="bool" value="$(arg have_elevator)" />
+    <param name="have_pan_tilt" type="bool" value="$(arg have_pan_tilt)" />
+    
+    <rosparam file="$(find ric_robot)/config/default_komodo.yaml" command="load" />
+    
+    
+    <node name="ric_node" pkg="ric_robot" type="ric_node" output="screen" />
+    
+    
+    <include file="$(find ric_robot)/launch/komodo_arm.launch">
+      <arg name="have_elevator" value="$(arg have_elevator)" />
+    </include> 
+    
+    
+    <node pkg="usb_cam" type="usb_cam_node" name="front_cam_node" output="screen"  respawn="true">
+      <param name="~video_device" value="/dev/video0" />
+      <param name="~camera_frame_id" value="komodo_$(arg id)_Front_Camera_link" />
+      <param name="~pixel_format" value="yuyv" />
+      <param name="~image_width" value="320" />
+      <param name="~image_height" value="240" />
+    </node>
+    
+    <node pkg="usb_cam" type="usb_cam_node" name="arm_cam_node" output="screen"  respawn="true">
+      <param name="~video_device" value="/dev/video1" />
+      <param name="~camera_frame_id" value="komodo_$(arg id)_Arm_Camera_link" />
+      <param name="~pixel_format" value="yuyv" />
+      <param name="~image_width" value="320" />
+      <param name="~image_height" value="240" />
+    </node>
+    
+    <node pkg="usb_cam" type="usb_cam_node" name="rear_cam_node" output="screen"  respawn="true">
+      <param name="~video_device" value="/dev/video3" />
+      <param name="~camera_frame_id" value="komodo_$(arg id)_Rear_Camera_link" />
+      <param name="~pixel_format" value="yuyv" />
+      <param name="~image_width" value="320" />
+      <param name="~image_height" value="240" />
+    </node>
+    
+    <node pkg="usb_cam" type="usb_cam_node" name="top_cam_node" output="screen"  respawn="true">
+      <param name="~video_device" value="/dev/video4" />
+      <param name="~camera_frame_id" value="komodo_$(arg id)_Top_Camera_link" />
+      <param name="~pixel_format" value="yuyv" />
+      <param name="~image_width" value="320" />
+      <param name="~image_height" value="240" />
+    </node>
+    
+    
+    <include file="$(find openni2_launch)/launch/openni2.launch">
+      <arg name="camera" value="komodo_$(arg id)_Asus_Camera" />
+    </include>
+    
+    <node pkg="rosserial_python" type="serial_node.py" name="serial_node" output="screen">
+      <param name="~port" value="/dev/RiCBoard" />
+      <param name="~baud" value="57600" />
+    </node>
+    
+    <node pkg="hokuyo_node" type="hokuyo_node" name="hokuyo_node" output="screen">
+      <param name="port" value="/dev/Hokuyo" />
+      <param name="frame_id" value="komodo_$(arg id)_Laser_link" />
+    </node>
+    
+  </group>
+  
+</launch>
+
+
+

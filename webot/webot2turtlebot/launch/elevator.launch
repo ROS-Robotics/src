@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<launch>
+
+	<param name="have_elevator" type="bool" value="true" />
+	<include file="$(find ric_robot)/launch/komodo_arm.launch">
+		<arg name="have_elevator" value="true" />
+	</include> 
+
+
+</launch>

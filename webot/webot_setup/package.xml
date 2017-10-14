@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<package>
+  <name>webot_setup</name>
+  <version>1.0.0</version>
+  <description>webot_setup-package</description>
+  <url>http://www.ros.org/wiki/</url>
+  <maintainer email="ROS_Robot@outlook.com">allen</maintainer>
+  <author email="ROS_Robot@outlook.com">allen</author>
+  <license>BSD</license>
+
+
+  <buildtool_depend>catkin</buildtool_depend>
+  
+  <run_depend>webot</run_depend>
+  <run_depend>ric_base_station</run_depend>
+  <run_depend>webot_description</run_depend>
+  <run_depend>ric_mc</run_depend>
+  <run_depend>webot_board</run_depend>
+  <run_depend>webot_gazebo</run_depend>
+  <run_depend>ric_moveit</run_depend>
+  <run_depend>navigation</run_depend>
+  <export>
+  	<metapackage/>
+  </export>
+  
+</package>

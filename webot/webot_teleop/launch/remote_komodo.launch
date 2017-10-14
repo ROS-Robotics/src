@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<launch>
+
+<env name="ROS_MASTER_URI" value="http://$(env ROS_IP):11311"/>
+
+<arg name="id" default='1' />
+  <arg name="have_elevator"  default="False" />
+  <arg name="have_pan_tilt"  default="False" />
+
+
+	
+	<rosparam file="$(find ric_robot)/config/default_komodo.yaml" command="load" />
+	
+	<param name="have_elevator" type="bool" value="$(arg have_elevator)" />
+	<param name="have_pan_tilt" type="bool" value="$(arg have_pan_tilt)" />
+	
+	<node name="ric_node" pkg="ric_robot" type="ric_node" output="screen" />
+
+	 
+	<include file="$(find ric_robot)/launch/komodo_arm.launch">
+	  <arg name="have_elevator" value="$(arg have_elevator)" />
+	</include> 
+	
+	
+	  <node pkg="usb_cam" type="usb_cam_node" name="front_cam_node" output="screen"  respawn="true">
+	    <param name="~video_device" value="/dev/video1" />
+	    <param name="~camera_frame_id" value="komodo_$(arg id)_Front_Camera_link" />
+	    <param name="~pixel_format" value="yuyv" />
+     	    <param name="~image_width" value="320" />
+	    <param name="~image_height" value="240" />
+	  </node>
+	 
+	  <node pkg="usb_cam" type="usb_cam_node" name="arm_cam_node" output="screen"  respawn="true">
+	    <param name="~video_device" value="/dev/video0" />
+	    <param name="~camera_frame_id" value="komodo_$(arg id)_Arm_Camera_link" />
+	    <param name="~pixel_format" value="yuyv" />
+     	    <param name="~image_width" value="320" />
+	    <param name="~image_height" value="240" />
+	  </node>
+	  
+	  
+	  <include file="$(find openni2_launch)/launch/openni2.launch">
+	    <arg name="camera" value="komodo_$(arg id)_Asus_Camera" />
+	  </include>
+	  
+	<node pkg="rosserial_python" type="serial_node.py" name="serial_node" output="screen">
+	  <param name="~port" value="/dev/Teensy" />
+	  <param name="~baud" value="57600" />
+	</node>	  
+	  
+	  <!--
+	  <node pkg="hokuyo_node" type="hokuyo_node" name="hokuyo_node" output="screen">
+	    <param name="port" value="/dev/Hokuyo" />
+	    <param name="frame_id" value="komodo_$(arg id)_Laser_link" />
+	  </node>
+	   --> 
+	   <!--
+	  <node name="ric_arm_rc" pkg="ric_robot" type="ric_arm_rc.py" output="screen" />
+	  -->
+
+</launch>
+
+ 

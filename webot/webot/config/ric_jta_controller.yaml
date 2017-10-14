@@ -1,0 +1,1 @@
+dynamixel/arm_controller/arm_joints_name: ['base_rotation','shoulder','elbow1','elbow2','wrist']

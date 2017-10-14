@@ -1,0 +1,5 @@
+<?xml version="1.0" ?>
+<launch>
+        <arg name="topic" default='komodo_1/cmd_vel'/>
+	<node name="teleop_twist_keyboard" output="screen" pkg="ric_base_station" type="keyboard_teleop.py" args="$(arg topic)"/>
+</launch>

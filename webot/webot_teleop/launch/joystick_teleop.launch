@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<launch>
+	<arg name="maxspeed" default='1'/>  
+	<arg name="boost" default='2'/>  
+	<arg name="topic" default='diff/command'/>
+	<arg name="pubHz" default='20'/>
+	<arg name="maxSpeedAngular" default='1'/>  
+	<arg name="LEFT_RIGHT_NUM" default='0'/>
+	<arg name="UP_DOWN_NUM" default='1'/>
+	<arg name="BOOST_SPEED_BUTTON" default='4'/>
+	<arg name="ENABLE_BUTTON" default='5'/>
+	<arg name="JOY_NUM" default='0'/>
+	<arg name="REV_UP_DOWN" default='1'/>
+	<arg name="REV_LEFT_RIGHT" default='1'/>
+	<node name="joystick_teleop" output="screen" pkg="ric_base_station" type="Program.py" args="$(arg maxspeed) $(arg boost) $(arg topic) $(arg pubHz) $(arg maxSpeedAngular) $(arg LEFT_RIGHT_NUM) $(arg UP_DOWN_NUM) $(arg BOOST_SPEED_BUTTON) $(arg ENABLE_BUTTON) $(arg JOY_NUM) $(arg REV_UP_DOWN) $(arg REV_LEFT_RIGHT)"/>
+</launch>

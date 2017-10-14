@@ -1,0 +1,10 @@
+<launch>
+	<arg name="from" default="/komodo_1/diff_driver/command" />
+	<arg name="to" default="/cmd_vel" />
+	<node name="ric_remaper" pkg="komodo_2dnav" type="startDriverCommand.py" output="screen" args="$(arg from) $(arg to)" />
+      <!--
+        <arg name="odomfrom" default="/komodo_1/odom_pub" />
+	<arg name="odomto" default="/odom" />
+	<node name="ric_odom_remaper" pkg="komodo_2dnav" type="odomTransfer.py" output="screen" args="$(arg odomfrom) $(arg odomto)" />
+      -->
+</launch>

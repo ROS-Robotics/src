@@ -1,0 +1,10 @@
+wheel_diameter: 0.2622
+wheel_base_length: 0.396
+encoder_cpr: 2048
+
+fuse_imu_roll_pitch: true
+fuse_imu_yaw: false
+slip_factor: 0.65
+
+pid_constants: [0.007,0.1, 0.0, 0.05,1.0] # [kp,ki,kd,alpha(0-1),control_dt(ms)] 
+

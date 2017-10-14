@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<launch>
+	<arg name="id" default='1' />
+	<arg name="have_elevator"  default="False" />
+	<arg name="have_pan_tilt"  default="False" />
+
+<!-- uncomment this if you only want to view the model in RViz. comment komodo_arm.launch, all cameras, laser, serial_node  
+<param name="publish_default_velocities" value="true"/>
+<param name="use_gui" value="true"/>
+<node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" > 
+<remap from="joint_states" to="komodo_$(arg id)/joint_states"/>
+</node> -->
+	<!--<node pkg="tf" type="static_transform_publisher" name="static_transform_publisher0" args="0 0 0 0 0 0 odom base_link 20" />--> 
+
+
+	<!--<param name="/robot_description" command="$(find xacro)/xacro.py '$(find ric_description)/komodo/komodo_no_plugins2.xacro' komodo_id:=$(arg id)" /> -->
+	<param name="/robot_description" command="$(find xacro)/xacro.py '$(find ric_description)/komodo/komodo_arm.xacro'" /> 
+	<!--<node pkg="tf" type="static_transform_publisher" name="static_transform_publisher" args="0 0 0 0 0 0 map odom 20" />-->
+	<node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" /> 
+	<group ns="komodo_$(arg id)"> 
+		<param name="have_elevator" type="bool" value="$(arg have_elevator)" />
+		<param name="have_pan_tilt" type="bool" value="$(arg have_pan_tilt)" />
+
+
+		<include file="$(find ric_robot)/launch/komodo_arm.launch">
+			<arg name="have_elevator" value="$(arg have_elevator)" />
+		</include> 
+	</group> 
+</launch>
+
+

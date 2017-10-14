@@ -1,0 +1,11 @@
+wheel_diameter: 0.14
+wheel_base_length: 0.275
+encoder_cpr: 4288 # 4288 for lizi4, 56000 for lizi2
+
+fuse_imu_roll_pitch: true
+fuse_imu_yaw: false
+
+pid_constants: [0.001,0.01, 0.0, 0.5,1.0] # [kp,ki,kd,alpha(0-1),control_dt(ms)] 
+
+have_pan_tilt: true
+have_elevator: false

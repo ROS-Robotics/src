@@ -1,0 +1,663 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/ric_gazebo" name="komodo">
+  
+  
+	<xacro:include filename="$(find ric_gazebo)/robots/materials.xacro" />
+ 
+	<xacro:arg name="ns" default="komodo"/>
+	<xacro:arg name="color" default="Grey"/>
+	<xacro:arg name="gazebo" default="false"/>
+	<xacro:arg name="arm_camera" default="false"/>
+	<xacro:arg name="front_camera" default="false"/>
+	<xacro:arg name="depth_camera" default="false"/>
+	<xacro:arg name="laser_scanner" default="false"/>
+	<xacro:arg name="urf" default="false"/>
+	<xacro:arg name="imu" default="false"/>
+
+  
+  
+	<xacro:if value="$(arg gazebo)">
+	<!-- Dummy inertia link & Joint -->
+		<link name="dummy_link">
+		</link>
+		<joint name="dummy_joint" type="fixed">
+			<origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
+			<parent link="dummy_link" />
+			<child link="base_link" />
+			<axis xyz="0 0 0" />
+		</joint>
+	</xacro:if>
+
+	<!-- <xacro:include filename="$(find ric_gazebo)/robots/komodo/komodo_description.xacro" /> -->
+  	<xacro:include filename="$(find ric_description)/komodo/komodo_elevator2_for_gazebo.xacro" /> -->
+	<xacro:if value="$(arg gazebo)">
+		<!-- ros_control plugin -->
+		<gazebo> 
+			<plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+			<robotNamespace>$(arg ns)</robotNamespace> 
+			</plugin> 
+		</gazebo>
+
+ <!-- Transmissions for ROS Control -->
+
+		<transmission name="tran1">
+			<type>transmission_interface/SimpleTransmission</type>
+			<joint name="FR_Wheel_joint">
+				<hardwareInterface>EffortJointInterface</hardwareInterface>
+			</joint>
+			<actuator name="motor1">
+				<hardwareInterface>EffortJointInterface</hardwareInterface>
+				<mechanicalReduction>1</mechanicalReduction>
+			</actuator>
+		</transmission>
+
+		<transmission name="tran2">
+			<type>transmission_interface/SimpleTransmission</type>
+			<joint name="FL_Wheel_joint">
+				<hardwareInterface>EffortJointInterface</hardwareInterface>
+			</joint>
+			<actuator name="motor2">
+				<hardwareInterface>EffortJointInterface</hardwareInterface>
+				<mechanicalReduction>1</mechanicalReduction>
+			</actuator>
+		</transmission>
+
+		<transmission name="tran3">
+			<type>transmission_interface/SimpleTransmission</type>
+			<joint name="RR_Wheel_joint">
+				<hardwareInterface>EffortJointInterface</hardwareInterface>
+			</joint>
+			<actuator name="motor3">
+				<hardwareInterface>EffortJointInterface</hardwareInterface>
+				<mechanicalReduction>1</mechanicalReduction>
+			</actuator>
+		</transmission>
+
+		<transmission name="tran4">
+			<type>transmission_interface/SimpleTransmission</type>
+			<joint name="RL_Wheel_joint">
+				<hardwareInterface>EffortJointInterface</hardwareInterface>
+			</joint>
+			<actuator name="motor4">
+				<hardwareInterface>EffortJointInterface</hardwareInterface>
+				<mechanicalReduction>1</mechanicalReduction>
+			</actuator>
+		</transmission>
+		
+		<transmission name="tran5">
+			<type>transmission_interface/SimpleTransmission</type>
+			<joint name="elevator_joint">
+				<hardwareInterface>EffortJointInterface</hardwareInterface>
+			</joint>
+			<actuator name="motor5">
+				<hardwareInterface>EffortJointInterface</hardwareInterface>
+				<mechanicalReduction>1.0</mechanicalReduction>
+			</actuator>
+		</transmission>
+		 
+		<transmission name="tran6">
+			<type>transmission_interface/SimpleTransmission</type>
+			<joint name="base_rotation_joint">
+				<hardwareInterface>EffortJointInterface</hardwareInterface>
+			</joint>
+			<actuator name="motor6">
+				<hardwareInterface>EffortJointInterface</hardwareInterface>
+				<mechanicalReduction>1</mechanicalReduction>
+			</actuator>
+		</transmission>
+
+		<transmission name="tran7">
+			<type>transmission_interface/SimpleTransmission</type>
+			<joint name="shoulder_joint">
+				<hardwareInterface>EffortJointInterface</hardwareInterface>
+			</joint>
+			<actuator name="motor7">
+				<hardwareInterface>EffortJointInterface</hardwareInterface>
+				<mechanicalReduction>1</mechanicalReduction>
+			</actuator>
+		</transmission>
+
+		<transmission name="tran8">
+			<type>transmission_interface/SimpleTransmission</type>
+			<joint name="elbow1_joint">
+				<hardwareInterface>EffortJointInterface</hardwareInterface>
+			</joint>
+			<actuator name="motor8">
+				<hardwareInterface>EffortJointInterface</hardwareInterface>
+				<mechanicalReduction>1</mechanicalReduction>
+			</actuator>
+		</transmission>
+
+		<transmission name="tran9">
+			<type>transmission_interface/SimpleTransmission</type>
+			<joint name="elbow2_joint">
+				<hardwareInterface>EffortJointInterface</hardwareInterface>
+			</joint>
+			<actuator name="motor9">
+				<hardwareInterface>EffortJointInterface</hardwareInterface>
+				<mechanicalReduction>1</mechanicalReduction>
+			</actuator>
+		</transmission>
+
+		<transmission name="tran10">
+			<type>transmission_interface/SimpleTransmission</type>
+			<joint name="wrist_joint">
+				<hardwareInterface>EffortJointInterface</hardwareInterface>
+			</joint>
+			<actuator name="motor10">
+				<hardwareInterface>EffortJointInterface</hardwareInterface>
+				<mechanicalReduction>1</mechanicalReduction>
+			</actuator>
+		</transmission>
+
+		<transmission name="tran11">
+			<type>transmission_interface/SimpleTransmission</type>
+			<joint name="left_finger_joint">
+				<hardwareInterface>EffortJointInterface</hardwareInterface>
+			</joint>
+			<actuator name="motor11">
+				<hardwareInterface>EffortJointInterface</hardwareInterface>
+				<mechanicalReduction>1</mechanicalReduction>
+			</actuator>
+		</transmission>
+
+		<transmission name="tran12">
+			<type>transmission_interface/SimpleTransmission</type>
+			<joint name="right_finger_joint">
+				<hardwareInterface>EffortJointInterface</hardwareInterface>
+			</joint>
+			<actuator name="motor12">
+				<hardwareInterface>EffortJointInterface</hardwareInterface>
+				<mechanicalReduction>1</mechanicalReduction>
+			</actuator>
+		</transmission>
+<!-- New -->
+
+		<gazebo reference="base_rotation_link">
+			<mu1>1</mu1>
+			<mu2>1</mu2>
+			<!--selfCollide>true</selfCollide-->
+			<material>Gazebo/Grey</material>
+		</gazebo>
+
+		<gazebo reference="shoulder_link">
+			<mu1>1</mu1>
+			<mu2>1</mu2>
+			<!--selfCollide>true</selfCollide-->
+			<material>Gazebo/Grey</material>
+		</gazebo>
+
+		<gazebo reference="elbow1_link">
+			<mu1>1</mu1>
+			<mu2>1</mu2>
+			<!--selfCollide>true</selfCollide-->
+		   <material>Gazebo/Grey</material>
+		</gazebo>
+
+		<gazebo reference="elbow2_link">
+			<mu1>1</mu1>
+			<mu2>1</mu2>
+			<!--selfCollide>true</selfCollide-->
+		   <material>Gazebo/Grey</material>
+		</gazebo>
+
+		<gazebo reference="wrist_link">
+			<mu1>1</mu1>
+			<mu2>1</mu2>
+			<!--selfCollide>true</selfCollide-->
+		</gazebo>
+
+		<gazebo reference="left_finger_link">
+			<mu1>1</mu1>
+			<mu2>1</mu2>
+			<!--selfCollide>true</selfCollide-->
+		</gazebo>
+
+		<gazebo reference="right_finger_link">
+			<mu1>1</mu1>
+			<mu2>1</mu2>
+			<!--selfCollide>true</selfCollide-->
+		</gazebo>
+
+		<gazebo reference="base_link">
+		  <material>Gazebo/$(arg color)</material>
+			<mu1>1</mu1>
+			<mu2>1</mu2>
+			<!--selfCollide>true</selfCollide-->
+		</gazebo>
+  
+		<gazebo reference="Arm_base_link">
+			<material>Gazebo/$(arg color)</material>
+		</gazebo>
+  
+		<gazebo reference="sensors_unit_link">
+			<material>Gazebo/$(arg color)</material>
+		</gazebo>
+  
+		<gazebo reference="FR_Wheel_link">
+			<mu1>1</mu1>
+			<mu2>1</mu2>
+			<!--selfCollide>true</selfCollide-->
+			<material>Gazebo/Grey</material>
+		</gazebo>
+	
+		<gazebo reference="FL_Wheel_link">
+			<mu1>1</mu1>
+			<mu2>1</mu2>
+			<!--selfCollide>true</selfCollide-->
+			<material>Gazebo/Grey</material>
+		</gazebo>
+	
+		<gazebo reference="RR_Wheel_link">
+			<mu1>1</mu1>
+			<mu2>1</mu2>
+			<!--selfCollide>true</selfCollide-->
+			<material>Gazebo/Grey</material>
+		</gazebo>
+	
+		<gazebo reference="RL_Wheel_link">
+			<mu1>1</mu1>
+			<mu2>1</mu2>
+			<!--selfCollide>true</selfCollide-->
+			<material>Gazebo/Grey</material>
+		</gazebo>
+
+		<gazebo reference="Laser_link">
+			<material>Gazebo/Grey</material>
+		</gazebo>
+
+		<gazebo reference="elevator_joint">
+			<erp>110.1</erp>
+			 <turnGravityOff>true</turnGravityOff>
+			<stopKd value="1000000000000000000000000000.0" />
+			<stopKp value="10000000000000000000000.0" />
+			<fudgeFactor value="100.99" />
+		</gazebo>
+		
+		<!-- Diff drive -->
+		<gazebo>
+			<plugin name="skid_steer_drive_controller" filename="libgazebo_ros_skid_steer_drive.so">
+				<always_on>1</always_on>
+				<updateRate>50.0</updateRate>
+				<robotNamespace>/$(arg ns)</robotNamespace>
+				<broadcastTF>1</broadcastTF>
+				<leftFrontJoint>FL_Wheel_joint</leftFrontJoint>
+				<rightFrontJoint>FR_Wheel_joint</rightFrontJoint>
+				<leftRearJoint>RL_Wheel_joint</leftRearJoint>
+				<rightRearJoint>RR_Wheel_joint</rightRearJoint>
+				<wheelSeparation>0.5</wheelSeparation>
+				<wheelDiameter>0.2</wheelDiameter>
+				<robotBaseFrame>dummy_link</robotBaseFrame>
+				<odometryTopic>diff_driver/odometry</odometryTopic>
+				<odometryFrame>odom_link</odometryFrame>
+				<torque>20</torque>
+				<commandTopic>diff_driver/command</commandTopic>
+			</plugin>
+	  <!--
+		<plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+		<robotNamespace>/komodo_st_$(arg komodo_id)</robotNamespace>
+		</plugin>
+	  -->
+		</gazebo>
+
+	</xacro:if>
+
+	<gazebo reference="Top_Camera_link">
+		<sensor type="camera" name="camera1">
+			<visualize>false</visualize>
+			<update_rate>30.0</update_rate>
+			<camera name="rear_camera">
+				<horizontal_fov>2.0</horizontal_fov>
+				<image>
+					<width>1800</width>
+					<height>1800</height>
+					<format>R8G8B8</format>
+				</image>
+				<clip>
+					<near>0.02</near>
+					<far>9</far>
+				</clip>
+			</camera>
+			<plugin name="libgazebo" filename="libgazebo_ros_camera.so">
+				<alwaysOn>true</alwaysOn>
+				<robotNamespace>$(arg ns)</robotNamespace>
+				<cameraName>top_camera</cameraName>
+				<imageTopicName>image_raw</imageTopicName>
+				<cameraInfoTopicName>camera_info</cameraInfoTopicName>
+				<frameName>Top_Camera_link</frameName>
+				<hackBaseline>0.07</hackBaseline>
+				<distortionK1>0.0</distortionK1>
+				<distortionK2>0.0</distortionK2>
+				<distortionK3>0.0</distortionK3>
+				<distortionT1>0.0</distortionT1>
+				<distortionT2>0.0</distortionT2>
+			</plugin>
+		</sensor>
+	</gazebo>
+
+	<gazebo reference="Rear_Camera_link">
+		<sensor type="camera" name="camera1">
+			<visualize>false</visualize>
+			<update_rate>30.0</update_rate>
+			<camera name="rear_camera">
+				<horizontal_fov>2.0</horizontal_fov>
+				<image>
+					<width>1800</width>
+					<height>1800</height>
+					<format>R8G8B8</format>
+				</image>
+				<clip>
+					<near>0.02</near>
+					<far>9</far>
+				</clip>
+			</camera>
+			<plugin name="libgazebo" filename="libgazebo_ros_camera.so">
+				<alwaysOn>true</alwaysOn>
+				<robotNamespace>$(arg ns)</robotNamespace>
+				<cameraName>rear_camera</cameraName>
+				<imageTopicName>image_raw</imageTopicName>
+				<cameraInfoTopicName>camera_info</cameraInfoTopicName>
+				<frameName>Rear_Camera_link</frameName>
+				<hackBaseline>0.07</hackBaseline>
+				<distortionK1>0.0</distortionK1>
+				<distortionK2>0.0</distortionK2>
+				<distortionK3>0.0</distortionK3>
+				<distortionT1>0.0</distortionT1>
+				<distortionT2>0.0</distortionT2>
+			</plugin>
+		</sensor>
+	</gazebo>
+
+	<xacro:if value="$(arg front_camera)">
+	<!-- front camera -->
+		<gazebo reference="Front_Camera_link">
+				<sensor type="camera" name="camera2">
+					<visualize>false</visualize>
+					<update_rate>30.0</update_rate>
+					<camera name="Front_Camera">
+						<horizontal_fov>2.0</horizontal_fov>
+						<image>
+							<width>1800</width>
+							<height>1800</height>
+							<format>R8G8B8</format>
+						</image>
+						<clip>
+							<near>0.02</near>
+							<far>9</far>
+						</clip>
+					</camera>
+					<plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+						<alwaysOn>true</alwaysOn>
+						<robotNamespace>$(arg ns)</robotNamespace>
+						<cameraName>Front_Camera</cameraName>
+						<imageTopicName>image_raw</imageTopicName>
+						<cameraInfoTopicName>camera_info</cameraInfoTopicName>
+						<frameName>Front_Camera_link</frameName>
+						<hackBaseline>0.07</hackBaseline>
+						<distortionK1>0.0</distortionK1>
+						<distortionK2>0.0</distortionK2>
+						<distortionK3>0.0</distortionK3>
+						<distortionT1>0.0</distortionT1>
+						<distortionT2>0.0</distortionT2>
+					</plugin>
+				</sensor>
+		</gazebo>
+
+	</xacro:if>
+
+	<xacro:if value="$(arg depth_camera)">
+		<!-- Asus camera  - Gazebo -->
+
+		<gazebo reference="Asus_Camera_link">
+			<sensor type="depth" name="Asus_Camera_link">
+				<pose>0 0 0 0 0 0</pose>
+				<visualize>true</visualize>
+				<update_rate>20</update_rate>
+				<camera>
+					<horizontal_fov>2.0</horizontal_fov>
+					<image>
+						<format>R8G8B8</format>
+						<width>640</width>
+						<height>480</height>
+					</image>
+					<clip>
+						<near>0.5</near>
+						<far>9</far>
+					</clip>
+				</camera>
+				<plugin name="Asus_Camera_link_camera_controller" filename="libgazebo_ros_openni_kinect.so">
+					<alwaysOn>true</alwaysOn>
+					<updateRate>20</updateRate>
+					<cameraName>Asus_Camera</cameraName>
+					<imageTopicName>rgb/image_raw</imageTopicName>
+					<cameraInfoTopicName>rgb/camera_info</cameraInfoTopicName>
+					<depthImageTopicName>depth/image_raw</depthImageTopicName>
+					<depthImageCameraInfoTopicName>depth/camera_info</depthImageCameraInfoTopicName>
+					<pointCloudTopicName>depth/rotated_points</pointCloudTopicName>
+					<pointCloudCutoff>0.4</pointCloudCutoff>
+					<pointCloudCutoffMax>50.0</pointCloudCutoffMax> 
+					<frameName>/Asus_Camera_link</frameName> 
+					<distortion_k1>0.0</distortion_k1>
+					<distortion_k2>0.0</distortion_k2>
+					<distortion_k3>0.0</distortion_k3>
+					<distortion_t1>0.0</distortion_t1>
+					<distortion_t2>0.0</distortion_t2>
+				</plugin>
+			</sensor>
+		</gazebo>
+	</xacro:if>
+	
+	<gazebo reference="Creative_Camera_link">
+			<sensor type="depth" name="Creative_Camera_link">
+				<pose>0 0 0 0 0 0</pose>
+				<visualize>true</visualize>
+				<update_rate>20</update_rate>
+				<camera>
+					<horizontal_fov>2.0</horizontal_fov>
+					<image>
+						<format>R8G8B8</format>
+						<width>640</width>
+						<height>480</height>
+					</image>
+					<clip>
+						<near>0.5</near>
+						<far>9</far>
+					</clip>
+				</camera>
+				<plugin name="Creative_Camera_link_camera_controller" filename="libgazebo_ros_openni_kinect.so">
+					<alwaysOn>true</alwaysOn>
+					<updateRate>20</updateRate>
+					<cameraName>Creative_Camera</cameraName>
+					<imageTopicName>rgb/image_raw</imageTopicName>
+					<cameraInfoTopicName>rgb/camera_info</cameraInfoTopicName>
+					<depthImageTopicName>depth/image_raw</depthImageTopicName>
+					<depthImageCameraInfoTopicName>depth/camera_info</depthImageCameraInfoTopicName>
+					<pointCloudTopicName>depth/rotated_points</pointCloudTopicName>
+					<pointCloudCutoff>0.4</pointCloudCutoff>
+					<pointCloudCutoffMax>50.0</pointCloudCutoffMax> 
+					<frameName>/Creative_Camera_link</frameName> 
+					<distortion_k1>0.0</distortion_k1>
+					<distortion_k2>0.0</distortion_k2>
+					<distortion_k3>0.0</distortion_k3>
+					<distortion_t1>0.0</distortion_t1>
+					<distortion_t2>0.0</distortion_t2>
+				</plugin>
+			</sensor>
+		</gazebo>
+  
+    <xacro:if value="$(arg laser_scanner)">
+		<!-- hokuyo -->
+		<gazebo reference="Laser_link">
+			<sensor type="ray" name="head_hokuyo_sensor">
+				<pose>0 0 0 0 0 0</pose>
+				<visualize>false</visualize>
+				<update_rate>10</update_rate>
+				<ray>
+					<scan>
+						<horizontal>
+							<samples>720</samples>
+							<resolution>1</resolution>
+							<min_angle>-1.570796</min_angle>
+							<max_angle>1.570796</max_angle>
+						</horizontal>
+					</scan>
+					<range>
+						<min>0.10</min>
+						<max>30.0</max>
+						<resolution>0.01</resolution>
+					</range>
+					<noise>
+						<type>gaussian</type>
+					  <!-- Noise parameters based on published spec for Hokuyo laser
+						   achieving "+-30mm" accuracy at range < 10m.  A mean of 0.0m and
+						   stddev of 0.01m will put 99.7% of samples within 0.03m of the true
+						   reading. -->
+						<mean>0.0</mean>
+						<stddev>0.01</stddev>
+					</noise>
+				</ray>
+				<plugin name="gazebo_ros_head_hokuyo_controller" filename="libgazebo_ros_laser.so">
+					<topicName>scan</topicName>
+					<frameName>Laser_link</frameName>
+				</plugin>
+			</sensor>
+		</gazebo>
+	</xacro:if>
+  
+    <xacro:if value="$(arg urf)">
+		<!-- SOnar Right URF -->
+		<!-- name = komodo_Right_URF update rate = 20.0 -->
+ 
+		<gazebo reference="Right_URF_link">
+			<sensor type="ray" name="Right_URF">
+				<pose>0 0 0 0 0 0</pose>
+				<visualize>false</visualize>
+				<ray>
+					<scan>
+						<horizontal>
+							<samples>10</samples>
+							<resolution>1</resolution>
+							<min_angle>-0.2</min_angle>
+							<max_angle> 0.2</max_angle>
+						</horizontal>
+						<vertical>
+							<samples>10</samples>
+							<resolution>1</resolution>
+							<min_angle>-0.2</min_angle>
+							<max_angle> 0.2</max_angle>
+						</vertical>
+					</scan>
+					<range>
+						<min>0.01</min>
+						<max>5.0</max>
+						<resolution>0.01</resolution>
+					</range>
+				</ray>
+				<plugin name="gazebo_ros_Right_URF_controller" filename="libhector_gazebo_ros_sonar.so">
+					<!--gaussianNoise>0.005</gaussianNoise-->
+					<!--  <robotNamespace>/komodo_$(arg komodo_id)</robotNamespace> -->
+					<topicName>Rangers/Right_URF</topicName>
+					<frameId>$(arg ns)/Right_URF_link</frameId>
+				</plugin>
+				<always_on>true</always_on>
+				<update_rate>10.0</update_rate>
+			</sensor>
+		</gazebo>
+
+<!-- SOnar Left URF -->
+<!-- name = komodo_Left_URF
+     update rate = 20.0 -->
+		<gazebo reference="Left_URF_link">
+			<sensor type="ray" name="Left_URF">
+				<always_on>true</always_on>
+				<update_rate>10.0</update_rate>
+				<pose>0 0 0 0 0 0</pose>
+				<visualize>false</visualize>
+				<ray>
+					<scan>
+						<horizontal>
+							<samples>10</samples>
+							<resolution>1</resolution>
+							<min_angle>-0.2</min_angle>
+							<max_angle> 0.2</max_angle>
+						</horizontal>
+						<vertical>
+							<samples>10</samples>
+							<resolution>1</resolution>
+							<min_angle>-0.2</min_angle>
+							<max_angle> 0.2</max_angle>
+						</vertical>
+					</scan>
+					<range>
+						<min>0.01</min>
+						<max>5.0</max>
+						<resolution>0.01</resolution>
+					</range>
+				</ray>
+
+				<plugin name="gazebo_ros_Left_URF_controller" filename="libhector_gazebo_ros_sonar.so">
+					<!--gaussianNoise>0.005</gaussianNoise-->
+					<!--  <robotNamespace>/komodo_$(arg komodo_id)</robotNamespace> -->
+					<topicName>Rangers/Left_URF</topicName>
+					<frameId>$(arg ns)/Left_URF_link</frameId>
+				</plugin>
+			</sensor>
+		</gazebo>
+
+		<!--komodo_Rear_URF-->
+
+		<gazebo reference="Rear_URF_link">
+			<sensor type="ray" name="Rear_URF">
+				<always_on>true</always_on>
+				<update_rate>10.0</update_rate>
+				<pose>0 0 0 0 0 0</pose>
+				<visualize>false</visualize>
+				<ray>
+					<scan>
+						<horizontal>
+							<samples>10</samples>
+							<resolution>1</resolution>
+							<min_angle>-0.2</min_angle>
+							<max_angle> 0.2</max_angle>
+						</horizontal>
+						<vertical>
+							<samples>10</samples>
+							<resolution>1</resolution>
+							<min_angle>-0.2</min_angle>
+							<max_angle> 0.2</max_angle>
+						</vertical>
+					</scan>
+					<range>
+						<min>0.01</min>
+						<max>5.0</max>
+						<resolution>0.01</resolution>
+					</range>
+				</ray>
+				<plugin name="gazebo_ros_Rear_URF_controller" filename="libhector_gazebo_ros_sonar.so">
+					<!--gaussianNoise>0.005</gaussianNoise-->
+					<!--  <robotNamespace>/komodo_$(arg komodo_id)</robotNamespace> -->
+					<topicName>Rangers/Rear_URF</topicName>
+					<frameId>$(arg ns)/Rear_URF_link</frameId>
+				</plugin>
+			</sensor>
+		</gazebo>
+	</xacro:if>
+
+	<xacro:if value="$(arg imu)">
+		<!-- IMU -->
+		<gazebo>
+			<plugin name="imu_sim" filename="libhector_gazebo_ros_imu.so">
+				<updateRate>50.0</updateRate>
+				<bodyName>base_link</bodyName>
+				<frameId>$(arg ns)/base_link</frameId>
+				<topicName>IMU_AGQ</topicName>
+				<rpyOffsets>0 0 0</rpyOffsets> <!-- deprecated -->
+				<gaussianNoise>0</gaussianNoise>  <!-- deprecated -->
+				<accelDrift>0.5 0.5 0.5</accelDrift>
+				<accelGaussianNoise>0.35 0.35 0.3</accelGaussianNoise>
+				<rateDrift>0.1 0.1 0.1</rateDrift>
+				<rateGaussianNoise>0.05 0.05 0.015</rateGaussianNoise>
+			</plugin>
+		</gazebo>
+	</xacro:if>
+</robot>

@@ -1,0 +1,1226 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/ric_gazebo" name="lizi">
+  
+<xacro:include filename="$(find ric_gazebo)/robots/materials.xacro" />
+ 
+<xacro:arg name="ns" default="lizi"/>
+<xacro:arg name="color" default="Green"/>
+<xacro:arg name="gazebo" default="false"/>
+<xacro:arg name="front_camera" default="false"/>
+<xacro:arg name="depth_camera" default="false"/>
+<xacro:arg name="laser_scanner" default="false"/>
+<xacro:arg name="urf" default="false"/>
+<xacro:arg name="imu" default="false"/>
+<xacro:arg name="pan_tilt" default="true"/>
+
+	  
+  
+<xacro:if value="$(arg gazebo)">
+<!-- Dummy inertia link & Joint -->
+  <link name="dummy_link">    
+</link>
+  <joint
+    name="dummy_joint"
+    type="fixed">
+    <origin
+      xyz="0.0 0.0 0.0"
+      rpy="0 0 0" />
+    <parent
+      link="dummy_link" />
+    <child
+      link="base_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+
+</xacro:if>
+  
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+	xyz="-0.036889 0.00027038 0.069426"
+	rpy="0 0 0" />
+      <mass
+	value="4.706" />
+      <inertia
+	ixx="0.032024"
+	ixy="0.00038846"
+	ixz="-0.0046108"
+	iyy="0.065583"
+	iyz="2.8552E-06"
+	izz="0.076391" />
+    </inertial>
+    <visual>
+      <origin
+	xyz="0 0 0"
+	rpy="0 0 0" />
+      <geometry>
+	<mesh filename="package://ric_description/lizi/meshes/base_link.STL" />
+      </geometry>
+    <material
+	name="$(arg color)">
+    </material>
+
+	 
+    </visual>
+    <collision>
+      <origin
+	xyz="0 0 0"
+	rpy="0 0 0" />
+      <geometry>
+	  <mesh filename="package://ric_description/lizi/meshes/base_link.STL" /> 
+      </geometry>
+    </collision> 
+  </link>
+  
+
+  
+  <link
+    name="FL_Wheel_link">
+    <inertial>
+      <origin
+	xyz="2.9411E-11 -0.0075967 5.8231E-11"
+	rpy="0 0 0" />
+      <mass
+	value="0.4084" />
+      <inertia
+	ixx="0.00059356"
+	ixy="3.4979E-14"
+	ixz="-4.6514E-14"
+	iyy="0.0011268"
+	iyz="5.6928E-14"
+	izz="0.00059356" />
+    </inertial>
+    <visual>
+      <origin
+	xyz="0 0 0"
+	rpy="3.14159265359 0 0" />
+      <geometry>
+	<mesh
+	  filename="package://ric_description/lizi/meshes/FL_Wheel_Link.STL" />
+      </geometry>
+      <material
+	name="">
+	<color
+	  rgba="0.2 0.2 0.2 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+	xyz="0 0 0"
+	rpy="1.5707963267949 0 0" />
+      <geometry>
+	<!--mesh
+	  filename="package://ric_description/lizi/meshes/FL_Wheel_Link.STL" /-->
+	<cylinder length="0.02" radius="0.065"  
+	  />
+      </geometry>
+    </collision>
+  </link>
+  
+
+
+  <joint
+    name="FL_Wheel_Joint"
+    type="continuous">
+    <origin
+      xyz="0.118 0.1338 0.026"
+      rpy="3.14159265359 0 -1.3371E-16" />
+    <parent
+      link="base_link" />
+    <child
+      link="FL_Wheel_link" />
+    <axis
+      xyz="0 -1 0" />
+  </joint>
+  <link
+    name="RL_Wheel_link">
+    <inertial>
+      <origin
+	xyz="2.9411E-11 -0.0035967 5.8231E-11"
+	rpy="0 0 0" />
+      <mass
+	value="0.4084" />
+      <inertia
+	ixx="0.00059356"
+	ixy="3.4979E-14"
+	ixz="-4.6514E-14"
+	iyy="0.0011268"
+	iyz="5.6928E-14"
+	izz="0.00059356" />
+    </inertial>
+    <visual>
+      <origin
+	xyz="0 0 0"
+	rpy="3.14159265359 0 0" />
+      <geometry>
+	<mesh
+	  filename="package://ric_description/lizi/meshes/RL_Wheel_Link.STL" />
+      </geometry>
+      <material
+	name="">
+	<color
+	  rgba="0.2 0.2 0.2 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+	xyz="0 0 0"
+	rpy="1.5707963267949 0 0" />
+      <geometry>
+	<!--mesh
+	  filename="package://ric_description/lizi/meshes/RL_Wheel_Link.STL" /-->
+<cylinder length="0.02" radius="0.065"  
+	  />
+      </geometry>
+    </collision>
+  </link>
+  
+   
+
+  <joint
+    name="RL_Wheel_Joint"
+    type="continuous">
+    <origin
+      xyz="-0.118 0.1338 0.026"
+      rpy="3.14159265359 0 -6.6853E-16" />
+    <parent
+      link="base_link" />
+    <child
+      link="RL_Wheel_link" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="RR_Wheel_link">
+    <inertial>
+      <origin
+	xyz="-2.9411E-11 0.0035967 5.8231E-11"
+	rpy="0 0 0" />
+      <mass
+	value="0.4084" />
+      <inertia
+	ixx="0.00059356"
+	ixy="3.4979E-14"
+	ixz="4.6514E-14"
+	iyy="0.0011268"
+	iyz="-5.6928E-14"
+	izz="0.00059356" />
+    </inertial>
+    <visual>
+      <origin
+	xyz="0 0 0"
+	rpy="0 0 0" />
+      <geometry>
+	<mesh
+	  filename="package://ric_description/lizi/meshes/RR_Wheel_Link.STL" />
+      </geometry>
+      <material
+	name="">
+	<color
+	  rgba="0.2 0.2 0.2 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+	xyz="0 0 0"
+	rpy="1.5707963267949 0 0" />
+      <geometry>
+	<!--mesh
+	  filename="package://ric_description/lizi/meshes/RR_Wheel_Link.STL" /-->
+<cylinder length="0.02" radius="0.065"  
+	  />
+      </geometry>
+    </collision>
+  </link>
+  
+   
+
+  <joint
+    name="RR_Wheel_Joint"
+    type="continuous">
+    <origin
+      xyz="-0.118 -0.1338 0.026"
+      rpy="-1.2938E-16 -1.2938E-15 -6.6853E-16" />
+    <parent
+      link="base_link" />
+    <child
+      link="RR_Wheel_link" />
+    <axis
+      xyz="0 1 0" />
+  </joint>
+  <link
+    name="FR_Wheel_link">
+    <inertial>
+      <origin
+	xyz="-2.9052E-11 0.0035967 5.8411E-11"
+	rpy="0 0 0" />
+      <mass
+	value="0.4084" />
+      <inertia
+	ixx="0.00059356"
+	ixy="3.4627E-14"
+	ixz="4.9977E-14"
+	iyy="0.0011268"
+	iyz="-5.7142E-14"
+	izz="0.00059356" />
+    </inertial>
+    <visual>
+      <origin
+	xyz="0 0 0"
+	rpy="0 0 0" />
+      <geometry>
+	<mesh
+	  filename="package://ric_description/lizi/meshes/FR_Wheel_Link.STL" />
+      </geometry>
+      <material
+	name="">
+	<color
+	  rgba="0.2 0.2 0.2 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+	xyz="0 0 0"
+	rpy="1.5707963267949 0 0" />
+      <geometry>
+	<!--mesh
+	  filename="package://ric_description/lizi/meshes/FR_Wheel_Link.STL" /-->
+<cylinder length="0.02" radius="0.065"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  
+
+  <joint
+    name="FR_Wheel_Joint"
+    type="continuous">
+    <origin
+      xyz="0.118 -0.1338 0.026"
+      rpy="4.4216E-16 -0.0061583 -2.6824E-16" />
+    <parent
+      link="base_link" />
+    <child
+      link="FR_Wheel_link" />
+    <axis
+      xyz="0 1 0" />
+  </joint>
+  <link
+    name="Asus_Pan_link">
+    <inertial>
+      <origin
+	xyz="-0.015533 -0.010751 0.019512"
+	rpy="0 0 0" />
+      <mass
+	value="0.016162" />
+      <inertia
+	ixx="5.2781E-06"
+	ixy="1.178E-06"
+	ixz="1.1286E-06"
+	iyy="6.0052E-06"
+	iyz="7.9421E-07"
+	izz="4.7257E-06" />
+    </inertial>
+    <visual>
+      <origin
+	xyz="0 0 0"
+	rpy="0 0 0" />
+      <geometry>
+	<mesh
+	  filename="package://ric_description/lizi/meshes/Asus_Pan_Link.STL" />
+      </geometry>
+      <material
+	name="">
+	<color
+	  rgba="0.2 0.2 0.2 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+	xyz="0 0 0"
+	rpy="0 0 0" />
+      <geometry>
+	<mesh
+	  filename="package://ric_description/lizi/meshes/Asus_Pan_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  
+   
+
+<xacro:if value="$(arg pan_tilt)">
+  <joint
+    name="Asus_Pan_Joint"
+    type="revolute">
+    <origin
+      xyz="0.081249 0 0.092091"
+      rpy="2.1253E-16 8.5011E-16 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="Asus_Pan_link" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="-1"
+      upper="1"
+      effort="10"
+      velocity="0" />
+  </joint>
+</xacro:if>
+  
+<xacro:unless value="$(arg pan_tilt)">
+ <joint
+    name="Asus_Pan_Joint"
+    type="fixed">
+    <origin
+      xyz="0.081249 0 0.092091"
+      rpy="2.1253E-16 8.5011E-16 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="Asus_Pan_link" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="-1"
+      upper="1"
+      effort="10"
+      velocity="0" />
+  </joint>
+</xacro:unless>
+
+  
+  <link
+    name="Asus_Camera_link">
+    <inertial>
+      <origin
+	xyz="-0.00010275 -0.00025849 0.00032822"
+	rpy="0 0 0" />
+      <mass
+	value="0.14689" />
+      <inertia
+	ixx="0.00037709"
+	ixy="-2.2879E-08"
+	ixz="1.0241E-05"
+	iyy="0.00038351"
+	iyz="1.2981E-08"
+	izz="2.2432E-05" />
+    </inertial>
+    <visual>
+      <origin
+	xyz="0 0 0"
+	rpy="1.57 0 0" />
+      <geometry>
+	<mesh
+	  filename="package://ric_description/lizi/meshes/Asus_Camera_Link.STL" />
+      </geometry>
+      <material
+	name="">
+	<color
+	  rgba="0.2 0.2 0.2 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+	xyz="0 0 0"
+	rpy="1.5707963267949 0 0" />
+      <geometry>
+	<mesh
+	  filename="package://ric_description/lizi/meshes/Asus_Camera_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  
+  
+  
+<xacro:if value="$(arg pan_tilt)">
+  <joint
+    name="Asus_Tilt_Joint"
+    type="revolute">
+    <origin
+      xyz="-0.0004889 -0.00041349 0.08"
+      rpy="0 0 0" />
+    <parent
+      link="Asus_Pan_link" />
+    <child
+      link="Asus_Camera_link" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="-1"
+      upper="1"
+      effort="10"
+      velocity="0" />
+  </joint>
+</xacro:if>
+
+<xacro:unless value="$(arg pan_tilt)">
+  <joint
+    name="Asus_Tilt_Joint"
+    type="fixed">
+    <origin
+      xyz="-0.0004889 -0.00041349 0.08"
+      rpy="0 0 0" />
+    <parent
+      link="Asus_Pan_link" />
+    <child
+      link="Asus_Camera_link" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="-1"
+      upper="1"
+      effort="10"
+      velocity="0" />
+  </joint>
+  </xacro:unless>
+  
+
+  <link
+    name="Right_URF_link">
+    <inertial>
+      <origin
+	xyz="1.6494E-05 0.012085 -1.486E-07"
+	rpy="0 0 0" />
+      <mass
+	value="0.0020317" />
+      <inertia
+	ixx="8.4324E-08"
+	ixy="1.1443E-10"
+	ixz="1.6171E-09"
+	iyy="9.8652E-08"
+	iyz="-1.0309E-12"
+	izz="7.8496E-08" />
+    </inertial>
+    <visual>
+      <origin
+	xyz="0 0 0"
+	rpy="0 0 1.57" />
+      <geometry>
+	<mesh
+	  filename="package://ric_description/lizi/meshes/Right_URF_Link.STL" />
+      </geometry>
+      <material
+	name="">
+	<color
+	  rgba="0.19216 0.11961 0.13333 1" />
+      </material>
+    </visual>
+  <collision>
+      <origin
+	xyz="0 0 0"
+	rpy="0 0 0" />
+      <geometry>
+	<mesh
+	  filename="package://ric_description/lizi/meshes/Right_URF_Link.STL" />
+      </geometry>
+    </collision> 
+  </link>
+
+ 
+
+  <joint
+    name="Right_URF_Joint"
+    type="fixed">
+    <origin
+      xyz="-0.0074577 -0.1055 0.07895"
+      rpy="0 2.6072E-16 -1.57" />
+    <parent
+      link="base_link" />
+    <child
+      link="Right_URF_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="Left_URF_link">
+    <inertial>
+      <origin
+	xyz="1.6494E-05 -0.012085 1.486E-07"
+	rpy="0 0 0" />
+      <mass
+	value="0.0020317" />
+      <inertia
+	ixx="8.4324E-08"
+	ixy="-1.1443E-10"
+	ixz="-1.6171E-09"
+	iyy="9.8652E-08"
+	iyz="-1.0309E-12"
+	izz="7.8496E-08" />
+    </inertial>
+    <visual>
+      <origin
+	xyz="0 0 0"
+	rpy="0 0 -1.57" />
+      <geometry>
+	<mesh
+	  filename="package://ric_description/lizi/meshes/Left_URF_Link.STL" />
+      </geometry>
+      <material
+	name="">
+	<color
+	  rgba="0.19216 0.11961 0.13333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+	xyz="0 0 0"
+	rpy="0 0 0" />
+      <geometry>
+	<mesh
+	  filename="package://ric_description/lizi/meshes/Left_URF_Link.STL" />
+      </geometry>
+    </collision> 
+  </link>
+  
+   
+
+  <joint
+    name="Left_URF_Joint"
+    type="fixed">
+    <origin
+      xyz="-0.0074577 0.1055 0.07895"
+      rpy="0 0 1.57" />
+    <parent
+      link="base_link" />
+    <child
+      link="Left_URF_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="Rear_URF_link">
+    <inertial>
+      <origin
+	xyz="0.012085 -1.486E-07 1.6494E-05"
+	rpy="0 0 0" />
+      <mass
+	value="0.0020317" />
+      <inertia
+	ixx="9.8652E-08"
+	ixy="-1.0309E-12"
+	ixz="1.1443E-10"
+	iyy="7.8496E-08"
+	iyz="1.6171E-09"
+	izz="8.4324E-08" />
+    </inertial>
+    <visual>
+      <origin
+	xyz="0 0 0"
+	rpy="0 0 3.14" />
+      <geometry>
+	<mesh
+	  filename="package://ric_description/lizi/meshes/Rear_URF_Link.STL" />
+      </geometry>
+      <material
+	name="">
+	<color
+	  rgba="0.19216 0.11961 0.13333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+	xyz="0 0 0"
+	rpy="0 0 0" />
+      <geometry>
+	<mesh
+	  filename="package://ric_description/lizi/meshes/Rear_URF_Link.STL" />
+      </geometry>
+    </collision> 
+  </link>
+  
+ 
+  <joint
+    name="Rear_URF_Joint"
+    type="fixed">
+    <origin
+      xyz="-0.182 0.085 0.093934"
+      rpy="0 0 3.14" />
+    <parent
+      link="base_link" />
+    <child
+      link="Rear_URF_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="Laser_link">
+    <inertial>
+      <origin
+	xyz="0.00079194 -0.00016941 -0.032844"
+	rpy="0 0 0" />
+      <mass
+	value="0.13934" />
+      <inertia
+	ixx="7.4677E-05"
+	ixy="-1.0667E-07"
+	ixz="-9.0925E-07"
+	iyy="7.7824E-05"
+	iyz="5.076E-07"
+	izz="5.1196E-05" />
+    </inertial>
+    <visual>
+      <origin
+	xyz="0 0 0"
+	rpy="0 0 0" />
+      <geometry>
+	<mesh
+	  filename="package://ric_description/lizi/meshes/Laser_Link.STL" />
+      </geometry>
+      <material
+	name="">
+	<color
+	  rgba="0.25294 0.25294 0.25294 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+	xyz="0 0 0"
+	rpy="0 0 0" />
+      <geometry>
+	<mesh
+	  filename="package://ric_description/lizi/meshes/Laser_Link.STL" />
+      </geometry>
+    </collision> 
+  </link>
+  
+ 
+
+  <joint
+    name="Laser_Joint"
+    type="fixed">
+    <origin
+      xyz="0.14276 -1.1564E-05 0.10781"
+      rpy="2.1253E-16 8.5011E-16 -2.6741E-16" />
+    <parent
+      link="base_link" />
+    <child
+      link="Laser_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="Camera_link">
+    <inertial>
+      <origin
+	xyz="-0.010925 -4.5428E-06 0.00024772"
+	rpy="0 0 0" />
+      <mass
+	value="0.033156" />
+      <inertia
+	ixx="9.3903E-06"
+	ixy="-1.4061E-09"
+	ixz="5.0587E-08"
+	iyy="5.845E-06"
+	iyz="-2.4174E-09"
+	izz="5.8692E-06" />
+    </inertial>
+    <visual>
+      <origin
+	xyz="0 0 0"
+	rpy="0 0 0" />
+      <geometry>
+	<mesh
+	  filename="package://ric_description/lizi/meshes/Camera_Link.STL" />
+      </geometry>
+      <material
+	name="">
+	<color
+	  rgba="0.2 0.2 0.2 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+	xyz="0 0 0"
+	rpy="0 0 0" />
+      <geometry>
+	<mesh
+	  filename="package://ric_description/lizi/meshes/Camera_Link.STL" />
+      </geometry>
+    </collision> 
+  </link>
+  
+   
+  <joint
+    name="Camera_Joint"
+    type="fixed">
+    <origin
+      xyz="0.178 0.05775 0.054305"
+      rpy="1.6519E-18 -0.0061583 -2.6824E-16" />
+    <parent
+      link="base_link" />
+    <child
+      link="Camera_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+
+  
+  <xacro:if value="$(arg gazebo)">
+    
+    
+      <gazebo reference="base_link">
+    <material>Gazebo/$(arg color)</material>
+  </gazebo> 
+  
+    <gazebo reference="FL_Wheel_link">
+    <material>Gazebo/Grey</material>
+</gazebo>
+
+  <gazebo reference="RR_Wheel_link">
+    <material>Gazebo/Grey</material>
+</gazebo>
+
+	  <gazebo reference="RR_Wheel_link">
+    <material>Gazebo/Grey</material>
+</gazebo>
+
+	<gazebo reference="FR_Wheel_link">
+    <material>Gazebo/Grey</material>
+</gazebo>
+
+    <gazebo reference="Asus_Pan_link">
+    <material>Gazebo/Grey</material>
+</gazebo>
+
+
+  <gazebo reference="Asus_Camera_link">
+    <material>Gazebo/Grey</material>
+</gazebo>
+
+<gazebo reference="Right_URF_link">
+    <material>Gazebo/Grey</material>
+</gazebo>
+  
+  <gazebo reference="Left_URF_link">
+    <material>Gazebo/Grey</material>
+</gazebo>
+
+    <gazebo reference="Rear_URF_link">
+    <material>Gazebo/Grey</material>
+</gazebo>
+
+
+    <gazebo reference="Laser_link">
+    <material>Gazebo/Grey</material>
+</gazebo>
+
+    <gazebo reference="Camera_link">
+    <material>Gazebo/Grey</material>
+</gazebo>
+
+
+<!-- HW interfaces for ROS CONTROL-->
+  <transmission name="tran1">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="FR_Wheel_Joint">
+<hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor1">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <transmission name="tran2">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="FL_Wheel_Joint">
+<hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor2">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <transmission name="tran3">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="RR_Wheel_Joint">
+<hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor3">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <transmission name="tran4">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="RL_Wheel_Joint">
+<hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor4">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  
+  <xacro:if value="$(arg pan_tilt)">
+
+  <transmission name="tran5">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="Asus_Pan_Joint">
+<hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor5">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <transmission name="tran6">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="Asus_Tilt_Joint">
+<hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor6">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  </xacro:if>
+
+<gazebo>
+  <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+    <robotNamespace>$(arg ns)</robotNamespace> 
+    <!-- <robotParam>robot_description_$(arg ns)</robotParam> -->
+  </plugin>
+</gazebo>
+
+
+
+<!-- Wheels friction -->
+
+<gazebo reference="FR_Wheel_link">
+    <mu1>1</mu1>
+    <mu2>1</mu2>
+    <!--selfCollide>true</selfCollide-->
+    <material>Gazebo/Grey</material>
+</gazebo>
+<gazebo reference="FL_Wheel_link">
+    <mu1>1</mu1>
+    <mu2>1</mu2>
+    <!--selfCollide>true</selfCollide-->
+    <material>Gazebo/Grey</material>
+</gazebo>
+<gazebo reference="RR_Wheel_link">
+    <mu1>1</mu1>
+    <mu2>1</mu2>
+    <!--selfCollide>true</selfCollide-->
+    <material>Gazebo/Grey</material>
+</gazebo>
+<gazebo reference="RL_Wheel_link">
+    <mu1>1</mu1>
+    <mu2>1</mu2>
+    <!--selfCollide>true</selfCollide-->
+    <material>Gazebo/Grey</material>
+</gazebo>
+
+
+<!-- Skid steer drive plugin -->
+<gazebo>
+  <plugin name="skid_steer_drive_controller" filename="libgazebo_ros_skid_steer_drive.so">
+    <always_on>1</always_on>
+    <updateRate>50.0</updateRate>
+    <robotNamespace>/$(arg ns)</robotNamespace>
+    <broadcastTF>1</broadcastTF>
+    <leftFrontJoint>FL_Wheel_Joint</leftFrontJoint>
+    <rightFrontJoint>FR_Wheel_Joint</rightFrontJoint>
+    <leftRearJoint>RL_Wheel_Joint</leftRearJoint>
+    <rightRearJoint>RR_Wheel_Joint</rightRearJoint>
+    <wheelSeparation>0.5</wheelSeparation>
+    <wheelDiameter>0.2</wheelDiameter>
+    <robotBaseFrame>dummy_link</robotBaseFrame>
+    <odometryTopic>diff_driver/odometry</odometryTopic>
+    <odometryFrame>odom_link</odometryFrame> 
+    <torque>20</torque>
+    <commandTopic>diff_driver/command</commandTopic>
+  </plugin>
+  
+  <!--
+<plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+      <robotNamespace>$(arg ns)</robotNamespace> 
+  </plugin>
+  -->
+  
+</gazebo>
+
+</xacro:if>
+
+
+  <xacro:if value="$(arg front_camera)">
+    
+<!-- front camera -->
+  <gazebo reference="Camera_link">
+    <sensor type="camera" name="front_camera">
+      <visualize>false</visualize>
+      <update_rate>15.0</update_rate>
+      <camera name="Front_Camera">
+	<horizontal_fov>2.0</horizontal_fov>
+	<image>
+	  <width>640</width>
+	  <height>480</height>
+	  <format>R8G8B8</format>
+	</image>
+	<clip>
+	  <near>0.02</near>
+	  <far>9</far>
+	</clip>
+      </camera>
+      <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+	<alwaysOn>true</alwaysOn>
+	<robotNamespace>$(arg ns)</robotNamespace>
+	<cameraName>Front_Camera</cameraName>
+	<imageTopicName>image_raw</imageTopicName>
+	<cameraInfoTopicName>camera_info</cameraInfoTopicName>
+	<frameName>Camera_link</frameName>
+	<hackBaseline>0.07</hackBaseline>
+	<distortionK1>0.0</distortionK1>
+	<distortionK2>0.0</distortionK2>
+	<distortionK3>0.0</distortionK3>
+	<distortionT1>0.0</distortionT1>
+	<distortionT2>0.0</distortionT2>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+
+</xacro:if>
+
+
+  <xacro:if value="$(arg depth_camera)">
+    
+  <!-- Asus camera plugin -->
+
+<gazebo reference="Asus_Camera_link">
+	<sensor type="depth" name="Asus_Camera_link">
+	  <pose>0 0 0 0 0 0</pose>
+	  <visualize>true</visualize>
+	  <update_rate>10</update_rate>
+		<camera>
+		<horizontal_fov>2.0</horizontal_fov>
+			<image>
+			<format>R8G8B8</format>
+			<width>640</width>
+			<height>480</height>
+			</image>
+		  <clip>
+		<near>0.5</near>
+		<far>9</far>
+		  </clip>
+		</camera>
+	<plugin name="Asus_Camera_link_camera_controller" filename="libgazebo_ros_openni_kinect.so">
+	<alwaysOn>true</alwaysOn>
+	<updateRate>5.0</updateRate>
+	<cameraName>Asus_Camera</cameraName>
+	<imageTopicName>rgb/image_raw</imageTopicName>
+	<cameraInfoTopicName>rgb/camera_info</cameraInfoTopicName>
+	<depthImageTopicName>depth/image_raw</depthImageTopicName>
+	<depthImageCameraInfoTopicName>depth/camera_info</depthImageCameraInfoTopicName>
+	<pointCloudTopicName>depth/rotated_points</pointCloudTopicName>
+	<pointCloudCutoff>0.4</pointCloudCutoff>
+	<pointCloudCutoffMax>5.0</pointCloudCutoffMax> 
+	<frameName>/Asus_Camera_link</frameName> 
+	<distortion_k1>0.0</distortion_k1>
+	<distortion_k2>0.0</distortion_k2>
+	<distortion_k3>0.0</distortion_k3>
+	<distortion_t1>0.0</distortion_t1>
+	<distortion_t2>0.0</distortion_t2>
+	</plugin>
+    </sensor>
+</gazebo>
+
+</xacro:if>
+
+  <xacro:if value="$(arg laser_scanner)">
+
+  <!-- hokuyo laser plugin -->
+  <gazebo reference="Laser_link">
+    <sensor type="ray" name="head_hokuyo_sensor">
+      <pose>0 0 0 0 0 0</pose>
+      <visualize>false</visualize>
+      <update_rate>10</update_rate>
+      <ray>
+	<scan>
+	  <horizontal>
+	    <samples>200</samples>
+	    <resolution>1.0</resolution>
+	    <min_angle>-1.570796</min_angle>
+	    <max_angle>1.570796</max_angle>
+	  </horizontal>
+	</scan>
+	<range>
+	  <min>0.06</min>
+	  <max>4.095</max>
+	  <resolution>0.01</resolution>
+	</range>
+	<noise>
+	  <type>gaussian</type>
+	  <!-- Noise parameters based on published spec for Hokuyo laser
+	      achieving "+-30mm" accuracy at range < 10m.  A mean of 0.0m and
+	      stddev of 0.01m will put 99.7% of samples within 0.03m of the true
+	      reading. -->
+	  <mean>0.0</mean>
+	  <stddev>0.01</stddev>
+	</noise>
+      </ray>
+      <plugin name="gazebo_ros_head_hokuyo_controller" filename="libgazebo_ros_laser.so">
+	<topicName>scan</topicName>
+	<frameName>Laser_link</frameName>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+  
+  </xacro:if>
+  
+  
+    <xacro:if value="$(arg urf)">
+  <!-- Right URF plugin -->
+
+<gazebo reference="Right_URF_link">
+      <sensor type="ray" name="Right_URF">
+	<pose>0 0 0 0 0 0</pose>
+	<visualize>false</visualize>
+	<ray>
+	  <scan>
+	    <horizontal>
+	      <samples>10</samples>
+	      <resolution>1</resolution>
+	      <min_angle>-0.2</min_angle>
+	      <max_angle> 0.2</max_angle>
+	    </horizontal>
+	    <vertical>
+	      <samples>10</samples>
+	      <resolution>1</resolution>
+	      <min_angle>-0.2</min_angle>
+	      <max_angle> 0.2</max_angle>
+	    </vertical>
+	  </scan>
+	  <range>
+	    <min>0.01</min>
+	    <max>5.0</max>
+	    <resolution>0.01</resolution>
+	  </range>
+	</ray>
+	<plugin name="gazebo_ros_Right_URF_controller" filename="libhector_gazebo_ros_sonar.so">
+	  <!--gaussianNoise>0.005</gaussianNoise-->
+	  <!-- <robotNamespace>$(arg ns)</robotNamespace> -->
+	  <topicName>Rangers/Right_URF</topicName>
+	  <frameId>$(arg ns)/Right_URF_link</frameId>
+	</plugin>
+	  <always_on>true</always_on>
+	  <update_rate>10.0</update_rate>
+      </sensor>
+    </gazebo>
+
+  <!-- Left URF plugin -->
+
+<gazebo reference="Left_URF_link">
+      <sensor type="ray" name="Left_URF">
+	<pose>0 0 0 0 0 0</pose>
+	<visualize>false</visualize>
+	<ray>
+	  <scan>
+	    <horizontal>
+	      <samples>10</samples>
+	      <resolution>1</resolution>
+	      <min_angle>-0.2</min_angle>
+	      <max_angle> 0.2</max_angle>
+	    </horizontal>
+	    <vertical>
+	      <samples>10</samples>
+	      <resolution>1</resolution>
+	      <min_angle>-0.2</min_angle>
+	      <max_angle> 0.2</max_angle>
+	    </vertical>
+	  </scan>
+	  <range>
+	    <min>0.01</min>
+	    <max>5.0</max>
+	    <resolution>0.01</resolution>
+	  </range>
+	</ray>
+	<plugin name="gazebo_ros_Left_URF_controller" filename="libhector_gazebo_ros_sonar.so">
+	  <!--gaussianNoise>0.005</gaussianNoise-->
+	  <!-- <robotNamespace>$(arg ns)</robotNamespace> -->
+	  <topicName>Rangers/Left_URF</topicName>
+	  <frameId>$(arg ns)/Left_URF_link</frameId>
+	</plugin>
+	  <always_on>true</always_on>
+	  <update_rate>10.0</update_rate>
+      </sensor>
+    </gazebo>
+
+  <!-- Rear URF plugin -->
+
+<gazebo reference="Rear_URF_link">
+      <sensor type="ray" name="Rear_URF">
+	<pose>0 0 0 0 0 0</pose>
+	<visualize>false</visualize>
+	<ray>
+	  <scan>
+	    <horizontal>
+	      <samples>10</samples>
+	      <resolution>1</resolution>
+	      <min_angle>-0.2</min_angle>
+	      <max_angle> 0.2</max_angle>
+	    </horizontal>
+	    <vertical>
+	      <samples>10</samples>
+	      <resolution>1</resolution>
+	      <min_angle>-0.2</min_angle>
+	      <max_angle> 0.2</max_angle>
+	    </vertical>
+	  </scan>
+	  <range>
+	    <min>0.01</min>
+	    <max>5.0</max>
+	    <resolution>0.01</resolution>
+	  </range>
+	</ray>
+	<plugin name="gazebo_ros_Rear_URF_controller" filename="libhector_gazebo_ros_sonar.so">
+	  <!--gaussianNoise>0.005</gaussianNoise-->
+	<!-- <robotNamespace>$(arg ns)</robotNamespace> -->
+	  <topicName>Rangers/Rear_URF</topicName>
+	  <frameId>$(arg ns)/Rear_URF_link</frameId>
+	</plugin>
+	  <always_on>true</always_on>
+	  <update_rate>10.0</update_rate>
+      </sensor>
+    </gazebo>
+
+    
+    </xacro:if>
+    
+    
+      <xacro:if value="$(arg imu)">
+    <!-- IMU -->
+  <gazebo>
+    <plugin name="imu_sim" filename="libhector_gazebo_ros_imu.so">
+      <updateRate>20.0</updateRate>
+      <bodyName>dummy_link</bodyName>
+       <frameId>$(arg ns)/dummy_link</frameId>
+      <topicName>IMU_AGQ</topicName>
+      <rpyOffsets>0 0 0</rpyOffsets> 
+      <gaussianNoise>0</gaussianNoise>  
+      <accelDrift>0.5 0.5 0.5</accelDrift>
+      <xyzOffset>0.0 0.0 0.0</xyzOffset>
+      <rpyOffset>0.0 0.0 0.0</rpyOffset>
+      <accelGaussianNoise>0.35 0.35 0.3</accelGaussianNoise>
+      <rateDrift>0.1 0.1 0.1</rateDrift>
+      <rateGaussianNoise>0.05 0.05 0.015</rateGaussianNoise>
+    </plugin>
+</gazebo>
+
+</xacro:if>
+
+</robot>

@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<launch>
+
+  <arg name="no_static_map" default="false"/>
+
+  <arg name="base_global_planner" default="navfn/NavfnROS"/>
+  <arg name="base_local_planner" default="dwa_local_planner/DWAPlannerROS"/>
+
+
+<!-- cancel the master auto start  
+
+<master auto="start"/>
+-->  
+  
+
+
+ <!-- Run the map server -->
+
+  <node name="map_server" pkg="map_server" type="map_server" args="$(find komodo_2dnav)/maps/map.yaml"/> 
+
+ <include file="$(find komodo_2dnav)/launch/remaper.launch" >
+   <!-- <arg name="to" value="/komodo_1/diff_driver/command" /> -->
+    <arg name="to" value="/komodo_1/cmd_vel" />
+    <arg name="from" value="/cmd_vel" />
+ </include> 
+ 
+
+  
+  <!--- Run AMCL --> 
+   <include file="$(find komodo_2dnav)/launch/ric_amcl.launch" /> 
+
+  <!--- Run rviz  
+   <node name="rviz" pkg="rviz" type="rviz" args="-d $(find ric_robot)/rviz/robot.rviz" output="screen"/>
+-->
+ 
+  <!--- Run move_base --> 
+  <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+
+    <param name="base_global_planner" value="$(arg base_global_planner)"/>
+    <param name="base_local_planner" value="$(arg base_local_planner)"/>  
+    <rosparam file="$(find komodo_2dnav)/config/planner.yaml" command="load"/>
+
+    <!-- observation sources located in costmap_common.yaml -->
+    <rosparam file="$(find komodo_2dnav)/config/costmap_common.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find komodo_2dnav)/config/costmap_common.yaml" command="load" ns="local_costmap" />
+
+    <!-- local costmap, needs size -->
+    <rosparam file="$(find komodo_2dnav)/config/costmap_local.yaml" command="load" ns="local_costmap" />
+    <param name="local_costmap/width" value="10.0"/>
+    <param name="local_costmap/height" value="10.0"/>
+
+    <!-- static global costmap, static map provides size -->
+    <rosparam file="$(find komodo_2dnav)/config/costmap_global_static.yaml" command="load" ns="global_costmap" unless="$(arg no_static_map)"/>
+    
+    <!-- global costmap with laser, for odom_navigation_demo -->
+    <rosparam file="$(find komodo_2dnav)/config/costmap_global_laser.yaml" command="load" ns="global_costmap" if="$(arg no_static_map)"/>
+    <param name="global_costmap/width" value="100.0" if="$(arg no_static_map)"/>
+    <param name="global_costmap/height" value="100.0" if="$(arg no_static_map)"/>
+  </node>
+
+</launch>

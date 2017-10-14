@@ -1,0 +1,15 @@
+robot_type: "komodo"
+robots_n: 1 # The number of robots
+
+joy_for: 3 # Axis for forward motion. 3 for Logitec, 4 for Xbox 360
+joy_rot: 2 # Axis for rotation motion. 2 for Logitec, 3 for Xbox 360
+joy_pan: 0 # Axis for pan control.
+joy_tilt: 1 # Axis for tilt control.
+joy_scroll_btn: 5 # button for switching between robots.
+joy_slow_btn: 4 # button for switching slow mode.
+joy_center_btn: 6 # button for centering pan tilt system.
+
+max_vel: 1.0 # Maximum forward velocity (m/s)
+max_rot: 3.0 # Maximum rotation velocity (rad/s)
+max_pan: 0.6 # Maximum pan angle (+- rad)
+max_tilt: 0.5 # Maximum tilt angle (+- rad)

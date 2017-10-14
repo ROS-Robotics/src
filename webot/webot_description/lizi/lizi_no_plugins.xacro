@@ -1,0 +1,636 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/ric" name="lizi_urdf">
+<xacro:property name="lizi_color" value="0 0.517 0.26 1" />
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="-0.036889 0.00027038 0.069426"
+        rpy="0 0 0" />
+      <mass
+        value="4.706" />
+      <inertia
+        ixx="0.032024"
+        ixy="0.00038846"
+        ixz="-0.0046108"
+        iyy="0.065583"
+        iyz="2.8552E-06"
+        izz="0.076391" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ric_description/lizi/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="${lizi_color}" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ric_description/lizi/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="FL_Wheel_link">
+    <inertial>
+      <origin
+        xyz="2.9411E-11 -0.0075967 5.8231E-11"
+        rpy="0 0 0" />
+      <mass
+        value="0.4084" />
+      <inertia
+        ixx="0.00059356"
+        ixy="3.4979E-14"
+        ixz="-4.6514E-14"
+        iyy="0.0011268"
+        iyz="5.6928E-14"
+        izz="0.00059356" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ric_description/lizi/meshes/FL_Wheel_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.2 0.2 0.2 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ric_description/lizi/meshes/FL_Wheel_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="FL_Wheel_Joint"
+    type="fixed">
+    <origin
+      xyz="0.118 0.1338 0.026"
+      rpy="0 0 -1.3371E-16" />
+    <parent
+      link="base_link" />
+    <child
+      link="FL_Wheel_link" />
+    <axis
+      xyz="0 -1 0" />
+  </joint>
+  <link
+    name="RL_Wheel_link">
+    <inertial>
+      <origin
+        xyz="2.9411E-11 -0.0035967 5.8231E-11"
+        rpy="0 0 0" />
+      <mass
+        value="0.4084" />
+      <inertia
+        ixx="0.00059356"
+        ixy="3.4979E-14"
+        ixz="-4.6514E-14"
+        iyy="0.0011268"
+        iyz="5.6928E-14"
+        izz="0.00059356" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ric_description/lizi/meshes/RL_Wheel_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.2 0.2 0.2 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ric_description/lizi/meshes/RL_Wheel_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="RL_Wheel_Joint"
+    type="fixed">
+    <origin
+      xyz="-0.118 0.1338 0.026"
+      rpy="0 0 -6.6853E-16" />
+    <parent
+      link="base_link" />
+    <child
+      link="RL_Wheel_link" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="RR_Wheel_link">
+    <inertial>
+      <origin
+        xyz="-2.9411E-11 0.0035967 5.8231E-11"
+        rpy="0 0 0" />
+      <mass
+        value="0.4084" />
+      <inertia
+        ixx="0.00059356"
+        ixy="3.4979E-14"
+        ixz="4.6514E-14"
+        iyy="0.0011268"
+        iyz="-5.6928E-14"
+        izz="0.00059356" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ric_description/lizi/meshes/RR_Wheel_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.2 0.2 0.2 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ric_description/lizi/meshes/RR_Wheel_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="RR_Wheel_Joint"
+    type="fixed">
+    <origin
+      xyz="-0.118 -0.1338 0.026"
+      rpy="-1.2938E-16 -1.2938E-15 -6.6853E-16" />
+    <parent
+      link="base_link" />
+    <child
+      link="RR_Wheel_link" />
+    <axis
+      xyz="0 1 0" />
+  </joint>
+  <link
+    name="FR_Wheel_link">
+    <inertial>
+      <origin
+        xyz="-2.9052E-11 0.0035967 5.8411E-11"
+        rpy="0 0 0" />
+      <mass
+        value="0.4084" />
+      <inertia
+        ixx="0.00059356"
+        ixy="3.4627E-14"
+        ixz="4.9977E-14"
+        iyy="0.0011268"
+        iyz="-5.7142E-14"
+        izz="0.00059356" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ric_description/lizi/meshes/FR_Wheel_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.2 0.2 0.2 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ric_description/lizi/meshes/FR_Wheel_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="FR_Wheel_Joint"
+    type="fixed">
+    <origin
+      xyz="0.118 -0.1338 0.026"
+      rpy="4.4216E-16 -0.0061583 -2.6824E-16" />
+    <parent
+      link="base_link" />
+    <child
+      link="FR_Wheel_link" />
+    <axis
+      xyz="0 1 0" />
+  </joint>
+  <link
+    name="Asus_Pan_link">
+    <inertial>
+      <origin
+        xyz="-0.015533 -0.010751 0.019512"
+        rpy="0 0 0" />
+      <mass
+        value="0.016162" />
+      <inertia
+        ixx="5.2781E-06"
+        ixy="1.178E-06"
+        ixz="1.1286E-06"
+        iyy="6.0052E-06"
+        iyz="7.9421E-07"
+        izz="4.7257E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ric_description/lizi/meshes/Asus_Pan_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.2 0.2 0.2 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ric_description/lizi/meshes/Asus_Pan_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Asus_Pan_Joint"
+    type="fixed">
+    <origin
+      xyz="0.081249 0 0.092091"
+      rpy="2.1253E-16 8.5011E-16 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="Asus_Pan_link" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="Asus_Camera_link">
+    <inertial>
+      <origin
+        xyz="-0.00010275 -0.00025849 0.00032822"
+        rpy="0 0 0" />
+      <mass
+        value="0.14689" />
+      <inertia
+        ixx="0.00037709"
+        ixy="-2.2879E-08"
+        ixz="1.0241E-05"
+        iyy="0.00038351"
+        iyz="1.2981E-08"
+        izz="2.2432E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="1.57 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ric_description/lizi/meshes/Asus_Camera_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.2 0.2 0.2 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ric_description/lizi/meshes/Asus_Camera_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Asus_Tilt_Joint"
+    type="fixed">
+    <origin
+      xyz="-0.0004889 -0.00041349 0.08"
+      rpy="0 0 0" />
+    <parent
+      link="Asus_Pan_link" />
+    <child
+      link="Asus_Camera_link" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="Right_URF_link">
+    <inertial>
+      <origin
+        xyz="1.6494E-05 0.012085 -1.486E-07"
+        rpy="0 0 0" />
+      <mass
+        value="0.0020317" />
+      <inertia
+        ixx="8.4324E-08"
+        ixy="1.1443E-10"
+        ixz="1.6171E-09"
+        iyy="9.8652E-08"
+        iyz="-1.0309E-12"
+        izz="7.8496E-08" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 1.57" />
+      <geometry>
+        <mesh
+          filename="package://ric_description/lizi/meshes/Right_URF_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.19216 0.11961 0.13333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ric_description/lizi/meshes/Right_URF_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Right_URF_Joint"
+    type="fixed">
+    <origin
+      xyz="-0.0074577 -0.1055 0.07895"
+      rpy="0 2.6072E-16 -1.57" />
+    <parent
+      link="base_link" />
+    <child
+      link="Right_URF_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="Left_URF_link">
+    <inertial>
+      <origin
+        xyz="1.6494E-05 -0.012085 1.486E-07"
+        rpy="0 0 0" />
+      <mass
+        value="0.0020317" />
+      <inertia
+        ixx="8.4324E-08"
+        ixy="-1.1443E-10"
+        ixz="-1.6171E-09"
+        iyy="9.8652E-08"
+        iyz="-1.0309E-12"
+        izz="7.8496E-08" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 -1.57" />
+      <geometry>
+        <mesh
+          filename="package://ric_description/lizi/meshes/Left_URF_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.19216 0.11961 0.13333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ric_description/lizi/meshes/Left_URF_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Left_URF_Joint"
+    type="fixed">
+    <origin
+      xyz="-0.0074577 0.1055 0.07895"
+      rpy="0 0 1.57" />
+    <parent
+      link="base_link" />
+    <child
+      link="Left_URF_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="Rear_URF_link">
+    <inertial>
+      <origin
+        xyz="0.012085 -1.486E-07 1.6494E-05"
+        rpy="0 0 0" />
+      <mass
+        value="0.0020317" />
+      <inertia
+        ixx="9.8652E-08"
+        ixy="-1.0309E-12"
+        ixz="1.1443E-10"
+        iyy="7.8496E-08"
+        iyz="1.6171E-09"
+        izz="8.4324E-08" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 3.14" />
+      <geometry>
+        <mesh
+          filename="package://ric_description/lizi/meshes/Rear_URF_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.19216 0.11961 0.13333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ric_description/lizi/meshes/Rear_URF_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Rear_URF_Joint"
+    type="fixed">
+    <origin
+      xyz="-0.182 0.085 0.093934"
+      rpy="0 0 3.14" />
+    <parent
+      link="base_link" />
+    <child
+      link="Rear_URF_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="Laser_link">
+    <inertial>
+      <origin
+        xyz="0.00079194 -0.00016941 -0.032844"
+        rpy="0 0 0" />
+      <mass
+        value="0.13934" />
+      <inertia
+        ixx="7.4677E-05"
+        ixy="-1.0667E-07"
+        ixz="-9.0925E-07"
+        iyy="7.7824E-05"
+        iyz="5.076E-07"
+        izz="5.1196E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ric_description/lizi/meshes/Laser_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.25294 0.25294 0.25294 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ric_description/lizi/meshes/Laser_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Laser_Joint"
+    type="fixed">
+    <origin
+      xyz="0.14276 -1.1564E-05 0.10781"
+      rpy="2.1253E-16 8.5011E-16 -2.6741E-16" />
+    <parent
+      link="base_link" />
+    <child
+      link="Laser_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="Camera_link">
+    <inertial>
+      <origin
+        xyz="-0.010925 -4.5428E-06 0.00024772"
+        rpy="0 0 0" />
+      <mass
+        value="0.033156" />
+      <inertia
+        ixx="9.3903E-06"
+        ixy="-1.4061E-09"
+        ixz="5.0587E-08"
+        iyy="5.845E-06"
+        iyz="-2.4174E-09"
+        izz="5.8692E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ric_description/lizi/meshes/Camera_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.2 0.2 0.2 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ric_description/lizi/meshes/Camera_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Camera_Joint"
+    type="fixed">
+    <origin
+      xyz="0.178 0.05775 0.054305"
+      rpy="1.6519E-18 -0.0061583 -2.6824E-16" />
+    <parent
+      link="base_link" />
+    <child
+      link="Camera_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+</robot>

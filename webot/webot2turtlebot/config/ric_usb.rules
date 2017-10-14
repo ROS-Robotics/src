@@ -1,0 +1,4 @@
+SUBSYSTEMS=="usb",  ATTRS{product}=="Arduino Due Prog. Port", SYMLINK+="LiziDUE"
+SUBSYSTEMS=="usb",ATTRS{manufacturer}=="Hokuyo Data Flex for USB", SYMLINK+="Hokuyo", MODE="0666"
+SUBSYSTEMS=="usb", ATTRS{manufacturer}=="Teensyduino", SYMLINK+="Teensy", MODE="0666"
+SUBSYSTEMS=="usb",ATTRS{product}=="FT232R USB UART", SYMLINK+="USB2DYNAMIXEL", MODE="0666"

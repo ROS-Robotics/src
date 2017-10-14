@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<launch>
+
+<param name="joy_node/dev" value="/dev/input/js1" type="str"/>
+<rosparam file="$(find ric_base_station)/config/multi_robot_control.yaml" command="load" />
+<node name="joy_node" pkg="joy" type="joy_node" output="screen" /> 
+<node name="multi_robot_control" pkg="ric_base_station" type="multi_robot_control.py" output="screen" />
+
+</launch>
+
+ 

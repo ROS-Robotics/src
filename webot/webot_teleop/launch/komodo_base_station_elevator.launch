@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<launch>
+
+ <include file="$(find ric_base_station)/launch/multi_robot_control.launch"/>  
+
+<machine name="komodo1" address="192.168.0.101" user="komodo" password="a" env-loader="~/catkin_ws/src/ric/ric_robot/config/ric_env.sh" default="true"/>
+
+<group ns="komodo_1">
+
+<!-- ~~~~~~~ UNCOMMENT TO VIEW THIS ROBOT IN RVIZ ~~~~~~~ -->
+<param name="/robot_description" command="$(find xacro)/xacro.py '$(find ric_description)/komodo/komodo_elevator.xacro' komodo_id:=1" />
+<node pkg="tf" type="static_transform_publisher" name="static_transform_publisher" args="0 0 0 0 0 0 map komodo_1_odom 20" />  
+<node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" /> 
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+<include file="$(find ric_base_station)/launch/remote_komodo_elevator.launch">
+<arg name="id" value="1" />
+</include>
+
+</group>
+
+
+
+
+</launch>
+
+ 

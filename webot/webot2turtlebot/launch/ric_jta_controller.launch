@@ -1,0 +1,4 @@
+<launch>
+	<rosparam file="$(find ric_robot)/config/ric_jta_controller.yaml" command="load" />
+	<node pkg="ric_robot" name="test_node" type="startJAFS.py" output="screen" />
+</launch>
