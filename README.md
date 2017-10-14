@@ -7,7 +7,7 @@
     $ mkdir webot
     $ cd webot
 
-    $ sudo git clone git@github.com:ROS-Robotics/src.git
+    $ sudo git clone https://github.com/ROS-Robotics/src.git
 
     $ chmod -R 777 ./src/
 
