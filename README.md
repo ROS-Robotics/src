@@ -1,5 +1,5 @@
 #    基于ROS系统的通用两轮底盘开发包
-（Google cartographer 建图，导航，与底盘驱动接口程序包）
+（Google cartographer 建图，导航，与底盘驱动接口的一体化程序包）
 
 ************** Download and bulid files **************************
 
