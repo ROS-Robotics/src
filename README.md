@@ -9,7 +9,7 @@
 
     $ sudo git clone https://github.com/ROS-Robotics/src.git
 
-    $ chmod -R 777 ./src/
+    $ sudo chmod -R 777 ./src/
 
     $ catkin_make_isolated --install --use-ninja
 
