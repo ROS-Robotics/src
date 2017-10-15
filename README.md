@@ -24,6 +24,14 @@ https://github.com/ROS-Robotics/Webot-ROS-Setup-Docment/wiki/Webot-通用轮式�
 
     $ catkin_make_isolated --install --use-ninja
 
+
+
+编译完成后在运行程序之前请确认硬件各接口已经连接到位
+
+1.Robot Drive-Kit(底盘驱动)的串口接到 ROS 主机端（Robot Drive-Kit 套件组成说明：https://github.com/ROS-Robotics/ros_drv_bridge/wiki/ROS_DRV_BRIDGE_README ）
+
+2.3D摄像头使用的是INTEL realsense R200 连接到 ROS 主机 USB3.0接口上。
+
 ***********************************
         Run a demo  
 ***********************************        
@@ -31,3 +39,4 @@ https://github.com/ROS-Robotics/Webot-ROS-Setup-Docment/wiki/Webot-通用轮式�
 $ source ~/webot/install_isolated/setup.bash
 
 $ roslaunch webot webot_SLAM_test.launch
+
