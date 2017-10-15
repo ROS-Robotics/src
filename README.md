@@ -9,6 +9,8 @@ https://github.com/ROS-Robotics/Webot-ROS-Setup-Docment/wiki/WeBot--软件安装
 通用两轮底盘硬件开发平台介绍
 
 https://github.com/ROS-Robotics/Webot-ROS-Setup-Docment/wiki/Webot-通用轮式机器人开发平台说明详解
+Robot Drive-Kit 套件组成说明：https://github.com/ROS-Robotics/ros_drv_bridge/wiki/ROS_DRV_BRIDGE_README 
+
 
 在安装完成ROS 系统后便可下载安装本程序包了。
 
